@@ -7,12 +7,16 @@
 
 #include "header.h"
 
-int Winery::numOfWineries = 0;
-
 int main()
 {
-	cout << Winery::numOfWineries << endl;
+	// create th application driver
+	driver* applicationDriver = new driver;
 
+	// display the main runloop of the driver
+	applicationDriver->main();
+
+	// delete the driver since we're done with it
+	delete applicationDriver;
 
 	return 0;
 }
