@@ -8,8 +8,7 @@
 #ifndef WINERY_H_
 #define WINERY_H_
 
-#include "../header.h"
-#include "wineryDistance.h"
+#include "header.h"
 
 // hack
 //#include <iostream>
@@ -140,8 +139,8 @@ public:
 	 *******************************************************************/
 	friend ostream& operator <<(ostream &os, const Winery &obj);
 
-	//Wine* wineHead;	//set to null in constructor
-	WineryDistance* distHead; //set to null in constructor
+	vector<Wine> wineList;			//set to null in constructor
+	vector<WineryDistance> dists; 	//set to null in constructor
 	static int numOfWineries;		//prolly should make this static
 
 private:
