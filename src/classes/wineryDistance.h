@@ -12,7 +12,6 @@ struct WineryDistance
 {
 	int number;
 	float distance;
-	WineryDistance* next;
 };
 
 

@@ -1,4 +1,4 @@
-#include "driver.h"
+#include "header.h"
 #include <limits>
 #include <ios>
 
@@ -14,6 +14,7 @@ driver::~driver()
 
 void driver::main()
 {
+	vector<Winery> wineryList;
 	int option = 0;
 
 	// main run loop for the driver

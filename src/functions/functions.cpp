@@ -5,7 +5,7 @@
  *      Author: jgibbins1
  */
 
-#include "../header.h"
+#include "header.h"
 
 //Global Functions
 

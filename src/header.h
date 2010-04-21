@@ -11,14 +11,15 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <vector>
 
 using namespace std;
 
 // classes
-#include "classes/wine.h"
-#include "classes/wineryDistance.h"
-#include "classes/winery.h"
+#include "wine.h"
+#include "wineryDistance.h"
+#include "winery.h"
 
-#include "classes/driver.h"
+#include "driver.h"
 
 #endif /* HEADER_H_ */
