@@ -8,10 +8,22 @@
 #ifndef WINERYDISTANCE_H_
 #define WINERYDISTANCE_H_
 
-struct WineryDistance
+class WineryDistance
 {
-	int number;
-	float distance;
+	public:
+		WineryDistance();
+		WineryDistance(int number, float distance);
+		~WineryDistance();
+
+		void setNumber(int number);
+		int getNumber();
+
+		void setDistance(float distance);
+		float getDistance();
+
+	private:
+		int number;
+		float distance;
 };
 
 

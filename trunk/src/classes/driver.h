@@ -2,10 +2,14 @@
  * Contains all of the functions for the driver of the class
  */
 
+#include "../header.h"
+
+
 #ifndef DRIVER_H_
 #define DRIVER_H_
 
-#include "header.h"
+// do all of the forward declares for dependencies so that the compiler won't throw a fucking bitch fit
+class Winery;
 
 class driver
 {
@@ -53,6 +57,14 @@ class driver
 		 * dictates if we should have an active runloop
 		 */
 		bool active;
+
+		/**
+		 * List of all of the wineries that we will be working with,
+		 * as a note we must declare wineries like this otherwise there will
+		 * be a massive fit thrown by the compiler, apparently it doesn't like
+		 * it when you try to subclass vector
+		 */
+		vector<Winery*> wineries;
 };
 
 #endif /* DRIVER_H_ */
