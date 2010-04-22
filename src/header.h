@@ -12,14 +12,16 @@
 #include <iomanip>
 #include <string>
 #include <vector>
+#include <limits>
+#include <ios>
 
 using namespace std;
 
 // classes
-#include "wine.h"
-#include "wineryDistance.h"
-#include "winery.h"
+#include "classes/wine.h"
+#include "classes/wineryDistance.h"
+#include "classes/winery.h"
 
-#include "driver.h"
+#include "classes/driver.h"
 
 #endif /* HEADER_H_ */

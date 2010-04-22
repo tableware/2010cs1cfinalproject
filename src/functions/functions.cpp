@@ -5,7 +5,7 @@
  *      Author: jgibbins1
  */
 
-#include "header.h"
+#include "../header.h"
 
 //Global Functions
 
@@ -24,12 +24,12 @@ Winery* MakeList();
 /********************************************************
  * Function - AddWinery
  *
- * This goes adds the main winery list.
- * Adds: The new winery's name, number, updates num of wineries,
+ * This goes adds the main Winery list.
+ * Adds: The new Winery's name, number, updates num of wineries,
  * sets visited to false, and sets subtotal to 0
  *
  * This then proceeds down the list and adds in its distance
- * to the stacks of every winery
+ * to the stacks of every Winery
  *
  * Returns: the new head
  ********************************************************/
@@ -38,18 +38,18 @@ Winery* AddWinery(Winery*& head);
 /********************************************************
  * Function - CalcClosestWinery
  *
- * This goes through the distance list of one winery, finds
+ * This goes through the distance list of one Winery, finds
  * the shortest distance, updates the total distance traveled,
  * and returns the closest one
  *
- * Returns: number of closest winery
+ * Returns: number of closest Winery
  ********************************************************/
 int CalcClosestWinery(Winery* ptr, float& totDist);
 
 /********************************************************
  * Function - CalcTotal
  *
- * This goes through the  temp winery list and sums all
+ * This goes through the  temp Winery list and sums all
  * the subtotals
  *
  * Returns: the total
@@ -65,7 +65,7 @@ void Push(T& head, T& newData)
 }
 
 //finds key and deletes it while maintaining linked list
-//Used for deleting wineries, winery distances, and wines
+//Used for deleting wineries, Winery distances, and wines
 template <class R>
 void Pop(R& head, R& ptrKey)
 {
@@ -97,8 +97,8 @@ void Pop(R& head, R& ptrKey)
 	}
 }
 
-//finds the winery number through a pointer to the class or
-//a pointer to the struct wineryDistance
+//finds the Winery number through a pointer to the class or
+//a pointer to the struct WineryDistance
 // Returns - pointer (Null if it didn't find anything)
 template <class S>
 S FindWineryNum(S head, int key)
@@ -126,11 +126,11 @@ S FindWineryNum(S head, int key)
 /********************************************************
  * Funtion - FindName
  *
- * This finds a wine/winery by its name.
+ * This finds a wine/Winery by its name.
  * Returns null if not found
  *
  * Used for shopping for a wine by checking if it's there,
- * popping wineries after done with them, seeing if winery
+ * popping wineries after done with them, seeing if Winery
  * exists, and ect...
  ********************************************************/
 template <class Q>

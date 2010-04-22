@@ -1,6 +1,4 @@
-#include "header.h"
-#include <limits>
-#include <ios>
+#include "../header.h"
 
 driver::driver() : active(true)
 {
@@ -14,7 +12,20 @@ driver::~driver()
 
 void driver::main()
 {
-	vector<Winery> wineryList;
+	// --   TESTING CODE  -- //
+	// This code is meant to demonstrate how to populate our wineries
+	Winery* temp;
+
+	temp = new Winery(1, "Winery Number One");
+	this->wineries.push_back(temp);
+
+	// we can reassign temp since we now assume the vector owns the memory
+	temp = new Winery();
+	temp->setNumber(2);
+	temp->setName("Winery Number Two");
+	this->wineries.push_back(temp);
+
+	// -- END TESTING CODE --//
 	int option = 0;
 
 	// main run loop for the driver
@@ -78,6 +89,14 @@ void driver::menu()
 void driver::listWineries()
 {
 	cout << "driver::listWineries()\n";
+
+	for (int i = 0; i < this->wineries.size(); ++i)
+	{
+		cout << "------\n"
+			 << "Number: " << this->wineries[i]->getNumber() << endl
+			 << "Name:   " << this->wineries[i]->getName() << endl;
+	}
+
 }
 
 void driver::planDayTrip()
