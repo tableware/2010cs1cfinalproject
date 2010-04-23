@@ -9,7 +9,7 @@
 
 int main()
 {
-	// create th application driver
+	// create the application driver
 	driver* applicationDriver = new driver;
 
 	// display the main runloop of the driver
