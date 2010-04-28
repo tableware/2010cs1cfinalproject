@@ -39,3 +39,23 @@ int Winery::getNumber()
 {
 	return this->number;
 }
+
+void Winery::setSubTotal(int subTotal)
+{
+	this->subTotal = subTotal;
+}
+
+int Winery::getSubTotal()
+{
+	return this->subTotal;
+}
+
+void Winery::setVisited(bool visited)
+{
+	this->visited = visited;
+}
+
+bool Winery::getVisited()
+{
+	return this->visited;
+}

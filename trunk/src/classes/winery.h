@@ -30,6 +30,12 @@ class Winery
 		void setNumber(int number);
 		int getNumber();
 
+		void setSubTotal(int subTotal);
+		int getSubTotal();
+
+		void setVisited(bool visited);
+		bool getVisited();
+
 		vector<Wine*> wineList;
 		vector<WineryDistance*> distanceList;
 
