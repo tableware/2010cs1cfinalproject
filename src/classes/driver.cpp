@@ -1,5 +1,7 @@
 #include "../header.h"
 
+int Winery::numOfWineries = 0;
+
 driver::driver() : active(true)
 {
 
@@ -15,15 +17,39 @@ void driver::main()
 	// --   TESTING CODE  -- //
 	// This code is meant to demonstrate how to populate our wineries
 //	Winery* temp;
+//	WineryDistance* dTemp;
+//	Wine* wTemp;
+//
 //
 //	temp = new Winery(1, "Winery Number One");
+//	dTemp = new WineryDistance(1,2.34);
+//	temp->distanceList.push_back(dTemp);
+//	dTemp = new WineryDistance(2,3.45);
+//	wTemp = new Wine("Somewine", .99, 1999, 3);
+//	temp->setNumOfWines(1);
+//	temp->distanceList.push_back(dTemp);
+//	temp->wineList.push_back(wTemp);
 //	this->wineries.push_back(temp);
+//	Winery::numOfWineries++;
 //
 //	// we can reassign temp since we now assume the vector owns the memory
 //	temp = new Winery();
 //	temp->setNumber(2);
 //	temp->setName("Winery Number Two");
+//	dTemp = new WineryDistance(1,2.34);
+//	temp->distanceList.push_back(dTemp);
+//	dTemp = new WineryDistance(2,3.45);
+//	wTemp = new Wine("Otherwine", 9.99, 2100, 1);
+//	temp->setNumOfWines(1);
+//	temp->wineList.push_back(wTemp);
+//	temp->distanceList.push_back(dTemp);
 //	this->wineries.push_back(temp);
+//	Winery::numOfWineries++;
+//
+//	createBinaryFile(this->wineries);
+//	this->wineries =(readBinaryFile());
+//
+//	this->listWineries();
 
 	// -- END TESTING CODE --//
 	int option = 0;
@@ -208,4 +234,9 @@ void driver::quit()
 {
 	// set our state to inactive
 	this->active = false;
+}
+
+void createBinaryFiles()
+{
+
 }

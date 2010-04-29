@@ -7,151 +7,342 @@
 
 #include "../header.h"
 
-//Global Functions
-
-/********************************************************
- * Function - MakeList
- *
- * This inFiles the information and creates a stack of
- * of wineries;
- *
- * In the order of however it comes
- *
- * Returns: head
- ********************************************************/
-Winery* MakeList();
-
-/********************************************************
- * Function - AddWinery
- *
- * This goes adds the main Winery list.
- * Adds: The new Winery's name, number, updates num of wineries,
- * sets visited to false, and sets subtotal to 0
- *
- * This then proceeds down the list and adds in its distance
- * to the stacks of every Winery
- *
- * Returns: the new head
- ********************************************************/
-Winery* AddWinery(Winery*& head);
-
-/********************************************************
- * Function - CalcClosestWinery
- *
- * This goes through the distance list of one Winery, finds
- * the shortest distance, updates the total distance traveled,
- * and returns the closest one
- *
- * Returns: number of closest Winery
- ********************************************************/
-int CalcClosestWinery(Winery* ptr, float& totDist);
-
-/********************************************************
- * Function - CalcTotal
- *
- * This goes through the  temp Winery list and sums all
- * the subtotals
- *
- * Returns: the total
- ********************************************************/
-float CalcTotal(Winery* tHead);
-
-//Templates
-template <class T>
-void Push(T& head, T& newData)
+int returnByteWinery(int val)
 {
-	newData->next = head;
-	head = newData;
+	return sizeof(Winery) * val;
 }
 
-//finds key and deletes it while maintaining linked list
-//Used for deleting wineries, Winery distances, and wines
-template <class R>
-void Pop(R& head, R& ptrKey)
+int returnByteWine(int val)
 {
-	R temp;
-
-	temp = head;
-
-	if (head == ptrKey)
-	{
-		head = head->next;
-	}
-	else
-	{
-		while (temp->next != ptrKey && temp != NULL)
-		{
-			temp = temp->next;
-		}
-
-		temp->next = ptrKey->next;
-	}
-
-	if (temp != NULL)
-	{
-		delete ptrKey;
-	}
-	else
-	{
-		cout << "\nDidn't find anything to pop!\n\n";
-	}
+	return sizeof(Wine) * val;
 }
 
-//finds the Winery number through a pointer to the class or
-//a pointer to the struct WineryDistance
-// Returns - pointer (Null if it didn't find anything)
-template <class S>
-S FindWineryNum(S head, int key)
+int returnByteWineryDistance(int val)
 {
-	S temp;
-	bool found;
-
-	temp = head;
-	found = false;
-
-	while(temp != NULL && found == false)
-	{
-		if (temp->number == key)
-		{
-			found = true;
-		}
-		else
-		{
-			temp = temp->next;
-		}
-	}
-	return temp;
+	return sizeof(WineryDistance) * val;
 }
 
-/********************************************************
- * Funtion - FindName
- *
- * This finds a wine/Winery by its name.
- * Returns null if not found
- *
- * Used for shopping for a wine by checking if it's there,
- * popping wineries after done with them, seeing if Winery
- * exists, and ect...
- ********************************************************/
-template <class Q>
-Q FindName(Q head, string key)
+int returnByteArraySize(int val)
 {
-	Q temp;
-	bool found;
+	char a;
+	return sizeof(a) * 50 * val;
+}
 
-	temp = head;
-	found = false;
+void createBinaryFile(vector<Winery*> list)
+{
+	int wineryCount;
+	int wineryDistanceCount;
+	int wineCount;
+	int stringCount;
+	//char fileName[35];
+	//string fileName;
+	vector<Winery*> :: iterator temp;
+	fstream dataFile;
 
-	while(temp != NULL && found == false)
+	dataFile.open("src/data/data.dat", ios::out|ios::binary);
+
+	wineryCount = 0;
+	wineryDistanceCount = 0;
+	wineCount = 0;
+	stringCount = 0;
+
+	//cout << "Enter location to store file (ex: data.dat): ";
+	//cin.getline(fileName, '\n');
+	//fileName = "src/data/data.dat";
+
+	cout << "\nCreating binary file...\n";
+
+	for(temp = list.begin( ); temp < list.end( ); temp++)
 	{
-		if (temp->name == key)
-		{
-			found = true;
-		}
-		else
-		{
-			temp = temp->next;
-		}
+		writeWinery(temp, wineryCount, wineryDistanceCount, wineCount,
+					stringCount, "src/data/data.dat");
 	}
-	return temp;
+
+	cout << "File created successfully!\n\n";
+
+	dataFile.close();
+}
+
+void writeWinery(vector<Winery*> :: iterator position, int& wineryCount,
+				 int& wineryDistanceCount, int& wineCount, int& stringCount,
+				 const char fName[])
+{
+	int tempNum;
+	char *tempCharArray;
+	char realCharArray[50];
+	vector<WineryDistance*> :: iterator distLoc;
+	vector<Wine*> :: iterator wineLoc;
+
+	fstream wineFile(fName, ios::in | ios::out | ios::binary);
+	int numOfWines = (*position)->getNumOfWines();
+	float subtotal = (*position)->getSubTotal();
+	int number = (*position)->getNumber();
+	bool visited = (*position)->getVisited();
+	string name = (*position)->getName();
+	tempNum = name.length();
+
+	tempCharArray = new char[name.size()+1];
+	tempCharArray[name.size()] = 0;
+	memcpy(tempCharArray,name.c_str(),name.size());
+	strcpy(realCharArray, tempCharArray);
+
+
+	wineFile.seekp(returnByteWinery(wineryCount)
+				   + returnByteWineryDistance(wineryDistanceCount)
+				   + returnByteWine(wineCount)
+				   + returnByteArraySize(stringCount));
+
+	cout << realCharArray << " " << number << endl;
+
+
+	wineFile.write((char*)&realCharArray,sizeof(realCharArray));
+	wineFile.write((char*)&number,sizeof(number));
+	wineFile.write((char*)&subtotal,sizeof(subtotal));
+	wineFile.write((char*)&visited,sizeof(visited));
+	wineFile.write((char*)&numOfWines,sizeof(numOfWines));
+
+	stringCount++;
+	wineryCount++;
+
+	for(distLoc = (*position)->distanceList.begin(); distLoc < (*position)->distanceList.end( ); distLoc++)
+	{
+		writeWineryDistance(distLoc, wineryCount, wineryDistanceCount, wineCount,
+					stringCount, fName);
+	}
+
+	for(wineLoc = (*position)->wineList.begin(); wineLoc < (*position)->wineList.end( ); wineLoc++)
+	{
+		writeWine(wineLoc, wineryCount, wineryDistanceCount, wineCount,
+				  stringCount, fName);
+	}
+
+	wineFile.close();
+
+
+}
+
+void writeWineryDistance(vector<WineryDistance*> :: iterator position, int& wineryCount,
+				 int& wineryDistanceCount, int& wineCount, int& stringCount,
+				 const char fName[])
+{
+	int number;
+	float distance;
+
+	number = (*position)->getNumber();
+	distance = (*position)->getDistance();
+
+	fstream wineFile(fName, ios::in | ios::out | ios::binary);
+
+	wineFile.seekp(returnByteWinery(wineryCount)
+				   + returnByteWineryDistance(wineryDistanceCount)
+				   + returnByteWine(wineCount)
+				   + returnByteArraySize(stringCount));
+
+	wineFile.write((char*)&number,sizeof(number));
+	wineFile.write((char*)&distance,sizeof(distance));
+
+	wineryDistanceCount++;
+
+	wineFile.close();
+}
+
+void writeWine(vector<Wine*> :: iterator position, int& wineryCount,
+				 int& wineryDistanceCount, int& wineCount, int& stringCount,
+				 const char fName[])
+{
+	string name;
+	float price;
+	int year;
+	int quantity;
+	char *tempCharArray;
+	char realCharArray[50];
+
+	name = (*position)->getName();
+	price = (*position)->getPrice();
+	year = (*position)->getYear();
+	quantity = (*position)->getQuantity();
+
+	tempCharArray = new char[name.size()+1];
+	tempCharArray[name.size()] = 0;
+	memcpy(tempCharArray,name.c_str(),name.size());
+	strcpy(realCharArray, tempCharArray);
+
+	fstream wineFile(fName, ios::in | ios::out | ios::binary);
+
+	wineFile.seekp(returnByteWinery(wineryCount)
+				   + returnByteWineryDistance(wineryDistanceCount)
+				   + returnByteWine(wineCount)
+				   + returnByteArraySize(stringCount));
+
+	wineFile.write((char*)&realCharArray,sizeof(realCharArray));
+	wineFile.write((char*)&price,sizeof(price));
+	wineFile.write((char*)&year,sizeof(year));
+	wineFile.write((char*)&quantity,sizeof(quantity));
+
+	wineCount++;
+	stringCount++;
+
+	wineFile.close();
+}
+
+
+
+
+vector<Winery*> readBinaryFile()
+{
+	int wineryCount;
+	int wineryDistanceCount;
+	int wineCount;
+	int stringCount;
+	int counter;
+	vector<Winery*> tempWineryList;
+	Winery* wTemp;
+	fstream dataFile;
+	char tempCharArray[50];
+
+	float subTotal;
+	bool visited;
+	int number;
+	int numOfWines;
+	string name;
+
+	wineryCount = 0;
+	wineryDistanceCount = 0;
+	wineCount = 0;
+	stringCount = 0;
+	counter = 0;
+
+
+	cout << "\nReading from binary file...\n";
+
+	fstream wineFile("src/data/data.dat", ios::in | ios::out | ios::binary);
+
+	while (counter < Winery::numOfWineries)
+	{
+		wTemp = new Winery;
+
+		wineFile.seekg(returnByteWinery(wineryCount)
+					   + returnByteWineryDistance(wineryDistanceCount)
+					   + returnByteWine(wineCount)
+					   + returnByteArraySize(stringCount));
+
+		wineFile.read((char*)&tempCharArray,sizeof(tempCharArray));
+		wineFile.read((char*)&number,sizeof(number));
+		wineFile.read((char*)&subTotal,sizeof(subTotal));
+		wineFile.read((char*)&visited,sizeof(visited));
+		wineFile.read((char*)&numOfWines,sizeof(numOfWines));
+
+		name = tempCharArray;
+
+		wTemp->setName(name);
+		wTemp->setNumber(number);
+		wTemp->setSubTotal(subTotal);
+		wTemp->setVisited(visited);
+		wTemp->setNumOfWines(numOfWines);
+
+		stringCount++;
+		wineryCount++;
+
+		readWineryDistance(wTemp, Winery::numOfWineries, wineryCount,
+						   wineryDistanceCount, wineCount, stringCount);
+
+		readWines(wTemp, numOfWines, wineryCount, wineryDistanceCount,
+				  wineCount, stringCount);
+
+		tempWineryList.push_back(wTemp);
+
+		counter++;
+	}
+
+	cout << "File read successfully!\n\n";
+
+	wineFile.close();
+
+	return tempWineryList;
+}
+
+void readWineryDistance( Winery*& wTemp, int numOfWineries, int& wineryCount,
+				 int& wineryDistanceCount, int& wineCount, int& stringCount)
+{
+	int number;
+	float distance;
+	int count;
+	WineryDistance* dTemp;
+
+	count = 0;
+
+	fstream wineFile("src/data/data.dat", ios::in | ios::out | ios::binary);
+
+	while (count < numOfWineries)
+	{
+		dTemp = new WineryDistance;
+
+		wineFile.seekg(returnByteWinery(wineryCount)
+					   + returnByteWineryDistance(wineryDistanceCount)
+					   + returnByteWine(wineCount)
+					   + returnByteArraySize(stringCount));
+
+		wineFile.read((char*)&number,sizeof(number));
+		wineFile.read((char*)&distance,sizeof(distance));
+
+		dTemp->setNumber(number);
+		dTemp->setDistance(distance);
+
+		wTemp->distanceList.push_back(dTemp);
+
+		wineryDistanceCount++;
+
+		count++;
+
+	}
+	wineFile.close();
+
+}
+
+
+void readWines( Winery*& wTemp, int numOfWines, int& wineryCount,
+				 int& wineryDistanceCount, int& wineCount, int& stringCount)
+{
+	string name;
+	float price;
+	int year;
+	int quantity;
+	int count;
+	char tempCharArray[50];
+	Wine* wineTemp;
+
+	count = 0;
+
+	fstream wineFile("src/data/data.dat", ios::in | ios::out | ios::binary);
+
+	while (count < numOfWines)
+	{
+		wineTemp = new Wine;
+
+		wineFile.seekg(returnByteWinery(wineryCount)
+					   + returnByteWineryDistance(wineryDistanceCount)
+					   + returnByteWine(wineCount)
+					   + returnByteArraySize(stringCount));
+
+		wineFile.read((char*)&tempCharArray,sizeof(tempCharArray));
+		wineFile.read((char*)&price,sizeof(price));
+		wineFile.read((char*)&year,sizeof(year));
+		wineFile.read((char*)&quantity,sizeof(quantity));
+
+		name = tempCharArray;
+
+		wineTemp->setName(name);
+		wineTemp->setPrice(price);
+		wineTemp->setYear(year);
+		wineTemp->setQuantity(quantity);
+
+		wTemp->wineList.push_back(wineTemp);
+
+		stringCount++;
+		wineCount++;
+
+		count++;
+
+	}
+	wineFile.close();
 }

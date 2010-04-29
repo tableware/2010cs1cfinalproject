@@ -30,14 +30,18 @@ class Winery
 		void setNumber(int number);
 		int getNumber();
 
-		void setSubTotal(int subTotal);
-		int getSubTotal();
+		void setSubTotal(float subTotal);
+		float getSubTotal();
 
 		void setVisited(bool visited);
 		bool getVisited();
 
+		void setNumOfWines(int numOfWines);
+		int getNumOfWines();
+
 		vector<Wine*> wineList;
 		vector<WineryDistance*> distanceList;
+		static int numOfWineries;		//prolly should make this static
 
 		/*******************************************************************
 		 *
@@ -150,6 +154,7 @@ class Winery
 
 
 	private:
+		int numOfWines;
 		int number;
 		string name;
 		bool visited;			//checks to see if you visited the location
