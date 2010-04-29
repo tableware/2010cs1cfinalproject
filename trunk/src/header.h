@@ -15,6 +15,7 @@
 #include <vector>
 #include <limits>
 #include <ios>
+#include <string.h>
 
 using namespace std;
 
@@ -24,5 +25,6 @@ using namespace std;
 #include "classes/winery.h"
 
 #include "classes/driver.h"
+#include "functions/functions.h"
 
 #endif /* HEADER_H_ */
