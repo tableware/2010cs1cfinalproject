@@ -6,11 +6,10 @@
  */
 #include "adminDriver.h"
 
-adminDriver::adminDriver(vector<Winery*>& wineries)
-{
-	this->wineries = &wineries;
-	this->active = true;
-}
+adminDriver::adminDriver() :
+	active(true),
+	wineries(NULL)
+{ }
 
 adminDriver::~adminDriver()
 {
@@ -20,11 +19,14 @@ adminDriver::~adminDriver()
 void adminDriver::menu()
 {
 	cout << "1. Quit\n"
-		 << "2. Load initial data\n\n";
+		 << "2. Load initial data\n"
+		 << "3. Add new winery\n\n";
 }
 
-void adminDriver::main()
+void adminDriver::main(vector<Winery*>& wineries)
 {
+	this->wineries = &wineries;
+
 	int option = 0;
 
 	// main run loop for the driver
@@ -43,7 +45,9 @@ void adminDriver::main()
 				cin.clear();
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			}
-		} while(option < 1 || option > 2);
+		} while(option < 1 || option > 3);
+
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 		cout << "\n\n";
 
@@ -56,6 +60,10 @@ void adminDriver::main()
 
 			case 2:
 				this->loadInitialData();
+			break;
+
+			case 3:
+				this->addWinery();
 			break;
 		}
 
@@ -141,4 +149,82 @@ void adminDriver::loadInitialData()
 		}
 
 		stream.close();
+}
+
+void adminDriver::addWinery()
+{
+	cout << "adminDriver::addWinery()\n";
+
+	Winery* tempWinery = new Winery();
+	WineryDistance* tempDistance;
+	Wine* tempWine;
+
+	string temp;
+	string temp2;
+
+
+	// grab the name
+	cout << "Winery name: ";
+	getline(cin, temp);
+	tempWinery->setName(temp);
+
+	// our winery number should be the current number of wineries + 1
+	tempWinery->setNumber(this->wineries->size() + 1);
+
+	// get the number of wines
+	cout << "Number of wines: ";
+	getline(cin, temp);
+
+	// get all of the wines from the administrator
+	for(int i = 0; i < atoi(temp.c_str()); ++i)
+	{
+		tempWine = new Wine();
+
+		cout << "Name of Wine: ";
+		getline(cin, temp2);
+		tempWine->setName(temp2);
+
+		cout << "Quantity of Wine: ";
+		getline(cin, temp2);
+		tempWine->setQuantity(atof(temp2.c_str()));
+
+		cout << "Price of Wine: ";
+		getline(cin, temp2);
+		tempWine->setPrice(atof(temp2.c_str()));
+
+		cout << "Year of Wine: ";
+		getline(cin, temp2);
+		tempWine->setYear(atoi(temp2.c_str()));
+
+		tempWinery->wineList.push_back(tempWine);
+	}
+
+	// loop through all of the current wineries and get the distances to the,
+	for(unsigned int i = 0; i < this->wineries->size(); ++i)
+	{
+		// get the distance for the current winery
+		cout << "Distance from " << (*this->wineries)[i]->getName() << ": ";
+		getline(cin, temp);
+
+		// create the distance and add it to the winery
+		tempDistance = new WineryDistance((*this->wineries)[i]->getNumber(), atof(temp.c_str()));
+		tempWinery->distanceList.push_back(tempDistance);
+
+		// update the old winery to link the distance to the new winery
+		tempDistance = new WineryDistance(tempWinery->getNumber(), atof(temp.c_str()));
+		(*this->wineries)[i]->distanceList.push_back(tempDistance);
+
+	}
+
+	// add a distance to ourself
+	tempWinery->distanceList.push_back(new WineryDistance(tempWinery->getNumber(), 0.0));
+
+	// add the winery to the list
+	this->wineries->push_back(tempWinery);
+}
+
+adminDriver& adminDriver::getInstance()
+{
+	static adminDriver instance;
+	return instance;
 }

@@ -72,6 +72,8 @@ void driver::main()
 			}
 		} while(option < 1 || option > 5);
 
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
 		cout << "\n\n";
 
 		// execute the option
@@ -162,13 +164,20 @@ void driver::performFileMaintenace()
 {
 	cout << "driver::performFileMaintenace()\n";
 
-	adminDriver *admin = new adminDriver(this->wineries);
-	admin->main();
-	delete admin;
+	adminDriver::getInstance().main(this->wineries);
+//	adminDriver *admin = new adminDriver(this->wineries);
+//	admin->main();
+//	delete admin;
 }
 
 void driver::quit()
 {
 	// set our state to inactive
 	this->active = false;
+}
+
+driver& driver::getInstance()
+{
+	static driver instance;
+	return instance;
 }

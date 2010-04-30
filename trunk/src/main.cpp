@@ -9,14 +9,8 @@
 
 int main()
 {
-	// create the application driver
-	driver* applicationDriver = new driver;
-
-	// display the main runloop of the driver
-	applicationDriver->main();
-
-	// delete the driver since we're done with it
-	delete applicationDriver;
+	// run the application
+	driver::getInstance().main();
 
 	return 0;
 }
