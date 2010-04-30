@@ -13,16 +13,21 @@
 class adminDriver
 {
 	public:
-		adminDriver(vector<Winery*>& wineries);
-		~adminDriver();
-
 		void menu();
-		void main();
+		void main(vector<Winery*>& wineries);
 		void quit();
 
 		void loadInitialData();
+		void addWinery();
+
+		static adminDriver& getInstance();
 
 	private:
+		adminDriver();
+		~adminDriver();
+		adminDriver(const adminDriver &);			// leave undefined
+		adminDriver& operator=(const adminDriver&);	// leave undefined
+
 		/**
 		 * dictates if we should have an active runloop
 		 */

@@ -14,9 +14,6 @@ class Winery;
 class driver
 {
 	public:
-		driver();
-		~driver();
-
 		/**
 		 * Holds the logic for the main run loop of the application
 		 */
@@ -52,7 +49,13 @@ class driver
 		 */
 		void quit();
 
+		static driver& getInstance();
 	private:
+		driver();
+		~driver();
+		driver(const driver &);             // left undefined intentionally
+		driver& operator=(const driver &); // left undefined intentionally
+
 		/**
 		 * dictates if we should have an active runloop
 		 */
