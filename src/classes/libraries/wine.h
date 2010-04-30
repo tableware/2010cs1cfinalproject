@@ -8,7 +8,8 @@
 #ifndef WINE_H_
 #define WINE_H_
 
-#include "../header.h"
+#include "../../header.h"
+
 
 class Wine
 {

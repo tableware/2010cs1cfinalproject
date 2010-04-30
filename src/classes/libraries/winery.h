@@ -11,7 +11,7 @@
 #ifndef WINERY_H_
 #define WINERY_H_
 
-#include "../header.h"
+#include "../../header.h"
 
 // Forward declarations so that compiler won't bitch at us
 class Wine;

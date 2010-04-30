@@ -15,17 +15,20 @@
 #include <vector>
 #include <limits>
 #include <ios>
-#include <string.h>
+#include <string>
 
 using namespace std;
 
 // classes
-#include "classes/wine.h"
-#include "classes/wineryDistance.h"
-#include "classes/winery.h"
+#include "classes/libraries/wine.h"
+#include "classes/libraries/wineryDistance.h"
+#include "classes/libraries/winery.h"
 
-#include "classes/driver.h"
-#include "classes/adminDriver.h"
+#include "classes/drivers/mainDriver.h"
+#include "classes/drivers/adminDriver.h"
+
+using namespace wineryProject_drivers;
+
 #include "functions/functions.h"
 
 #endif /* HEADER_H_ */

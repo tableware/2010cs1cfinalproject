@@ -10,7 +10,7 @@
 int main()
 {
 	// run the application
-	driver::getInstance().main();
+	mainDriver::getInstance().main();
 
 	return 0;
 }
