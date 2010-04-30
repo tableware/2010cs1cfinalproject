@@ -1,18 +1,18 @@
-#include "../header.h"
+#include "mainDriver.h"
 
 int Winery::numOfWineries = 0;
 
-driver::driver() : active(true)
+mainDriver::mainDriver() : active(true)
 {
 
 }
 
-driver::~driver()
+mainDriver::~mainDriver()
 {
 
 }
 
-void driver::main()
+void mainDriver::main()
 {
 	// --   TESTING CODE  -- //
 	// This code is meant to demonstrate how to populate our wineries
@@ -105,7 +105,7 @@ void driver::main()
 	} while(this->active);
 }
 
-void driver::menu()
+void mainDriver::menu()
 {
 	cout << "1. View our list of wineries\n"
 		 << "2. Plan a day trip\n"
@@ -114,7 +114,7 @@ void driver::menu()
 		 << "5. Quit\n\n";
 }
 
-void driver::listWineries()
+void mainDriver::listWineries()
 {
 	cout << "driver::listWineries()\n";
 
@@ -150,17 +150,17 @@ void driver::listWineries()
 
 }
 
-void driver::planDayTrip()
+void mainDriver::planDayTrip()
 {
 	cout << "driver::planDayTrip()\n";
 }
 
-void driver::tourWineriesAndPurchaseWines()
+void mainDriver::tourWineriesAndPurchaseWines()
 {
 	cout << "driver::tourWineriesAndPurchaseWines()\n";
 }
 
-void driver::performFileMaintenace()
+void mainDriver::performFileMaintenace()
 {
 	cout << "driver::performFileMaintenace()\n";
 
@@ -170,14 +170,14 @@ void driver::performFileMaintenace()
 //	delete admin;
 }
 
-void driver::quit()
+void mainDriver::quit()
 {
 	// set our state to inactive
 	this->active = false;
 }
 
-driver& driver::getInstance()
+mainDriver& mainDriver::getInstance()
 {
-	static driver instance;
+	static mainDriver instance;
 	return instance;
 }
