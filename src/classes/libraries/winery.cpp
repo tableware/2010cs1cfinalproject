@@ -71,3 +71,25 @@ int Winery::getNumOfWines()
 {
 	return this->numOfWines;
 }
+
+void Winery::outputWineTable()
+{
+	unsigned int count;
+
+	count = 0;
+	cout << right << setw(3) << "#" << left << setw(35) << " Name of wine"
+		 << right << setw(10) << "Price" << setw(8) << "Year" << endl;
+	cout << setfill('-');
+	cout << setw(56) << "-";
+	cout << setfill(' ');
+	cout << endl << fixed << setprecision(2);
+	while (count < this->wineList.size())
+	{
+		cout << right << setw(3) << count + 1 << left << " " << setw(34)
+			 << this->wineList[count]->getName() << right << setw(10)
+			 << this->wineList[count]->getPrice() << setw(8)
+			 << this->wineList[count]->getYear() << endl;
+		count++;
+	}
+
+}

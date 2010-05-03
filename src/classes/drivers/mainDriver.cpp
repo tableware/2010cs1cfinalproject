@@ -51,6 +51,60 @@ void mainDriver::main()
 
 	this->listWineries();
 
+	cout << endl;
+	outputWineryTable(this->wineries);
+	cout << endl;
+
+	cout << endl;
+	this->wineries[0]->outputWineTable();
+	cout << endl;
+
+//	unsigned int finder = FindName(this->wineries[0]->wineList, "Somewine");
+//	if (finder == this->wineries[0]->wineList.size())
+//	{
+//		cout << "\noutta bounds fool!\n";
+//	}
+//	else
+//	{
+//		cout << endl << "wine: " << this->wineries[0]->wineList[finder]->getName() << endl;
+//	}
+//
+//	cout << endl << "Place in vector: " << finder << endl;
+	Winery* temp;
+	WineryDistance* dTemp;
+	Wine* wTemp;
+
+
+	temp = new Winery(1, "Winery Number One");
+	dTemp = new WineryDistance(1,2.34);
+	temp->distanceList.push_back(dTemp);
+	dTemp = new WineryDistance(2,3.45);
+	wTemp = new Wine("Somewine", .99, 1999, 3);
+	temp->setNumOfWines(1);
+	temp->distanceList.push_back(dTemp);
+	temp->wineList.push_back(wTemp);
+	this->wineries.push_back(temp);
+	Winery::numOfWineries++;
+
+	// we can reassign temp since we now assume the vector owns the memory
+	temp = new Winery();
+	temp->setNumber(2);
+	temp->setName("Winery Number Two");
+	dTemp = new WineryDistance(1,2.34);
+	temp->distanceList.push_back(dTemp);
+	dTemp = new WineryDistance(2,3.45);
+	wTemp = new Wine("Otherwine", 9.99, 2100, 1);
+	temp->setNumOfWines(1);
+	temp->wineList.push_back(wTemp);
+	temp->distanceList.push_back(dTemp);
+	this->wineries.push_back(temp);
+	Winery::numOfWineries++;
+
+	createBinaryFile(this->wineries);
+	this->wineries =(readBinaryFile());
+
+	this->listWineries();
+
 	unsigned int finder = FindName(this->wineries[0]->wineList, "Somewine");
 	if (finder == this->wineries[0]->wineList.size())
 	{
