@@ -133,63 +133,62 @@ void Pop(R& head, R& ptrKey)
 	}
 }
 
-//finds the Winery number through a pointer to the class or
-//a pointer to the struct WineryDistance
-// Returns - pointer (Null if it didn't find anything)
+//finds a number through a pointer to the vector of a class
+// Returns - place where it is found in vector (the size if not found)
 template <class S>
-S FindWineryNum(S head, int key)
+int FindNum(vector<S*> vectorWithNumber, int key)
 {
-	S temp;
 	bool found;
+	unsigned int search;
 
-	temp = head;
 	found = false;
+	search = 0;
 
-	while(temp != NULL && found == false)
+	while(search < vectorWithNumber.size() && found == false)
 	{
-		if (temp->number == key)
+		if (vectorWithNumber[search]->getNumber() == key)
 		{
 			found = true;
 		}
 		else
 		{
-			temp = temp->next;
+			search++;
 		}
 	}
-	return temp;
+	return search;
 }
 
 /********************************************************
  * Funtion - FindName
  *
  * This finds a wine/Winery by its name.
- * Returns null if not found
+ * Returns the vector size if not found
  *
  * Used for shopping for a wine by checking if it's there,
  * popping wineries after done with them, seeing if Winery
  * exists, and ect...
  ********************************************************/
 template <class Q>
-Q FindName(Q head, string key)
+int FindName(vector<Q*> vectorWithName, string key)
 {
-	Q temp;
 	bool found;
+	unsigned int search;
 
-	temp = head;
 	found = false;
+	search = 0;
 
-	while(temp != NULL && found == false)
+	while(search < vectorWithName.size() && found == false)
 	{
-		if (temp->name == key)
+		if (vectorWithName[search]->getName() == key)
 		{
 			found = true;
 		}
 		else
 		{
-			temp = temp->next;
+			search++;
 		}
 	}
-	return temp;
+	return search;
 }
 
 #endif /* FUNCTIONS_H_ */
