@@ -92,9 +92,6 @@ void writeWinery(vector<Winery*> :: iterator position, int& wineryCount,
 				   + returnByteWine(wineCount)
 				   + returnByteArraySize(stringCount));
 
-	cout << realCharArray << " " << number << endl;
-
-
 	wineFile.write((char*)&realCharArray,sizeof(realCharArray));
 	wineFile.write((char*)&number,sizeof(number));
 	wineFile.write((char*)&subtotal,sizeof(subtotal));
@@ -345,4 +342,26 @@ void readWines( Winery*& wTemp, int numOfWines, int& wineryCount,
 
 	}
 	wineFile.close();
+}
+
+void outputWineryTable(vector<Winery*> wineryList)
+{
+	unsigned int count;
+
+	count = 0;
+	cout << right << setw(3) << "#" << left << setw(35) << " Name of winery"
+		 << right << setw(10) << "# of Wines" << endl;
+	cout << setfill('-');
+	cout << setw(48) << "-";
+	cout << setfill(' ');
+	cout << endl;
+	while (count < wineryList.size())
+	{
+		cout << right << setw(3) << wineryList[count]->getNumber() << left
+			 << " " << setw(34)
+			 << wineryList[count]->getName() << right << setw(10)
+			 << wineryList[count]->getNumOfWines() << endl;
+		count++;
+	}
+
 }

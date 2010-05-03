@@ -39,6 +39,8 @@ class Winery
 		void setNumOfWines(int numOfWines);
 		int getNumOfWines();
 
+		void outputWineTable();
+
 		vector<Wine*> wineList;
 		vector<WineryDistance*> distanceList;
 		static int numOfWineries;		//prolly should make this static

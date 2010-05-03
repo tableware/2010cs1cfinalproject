@@ -31,7 +31,7 @@ class trip
 
 		void process(vector<Winery*> mainList);
 
-		int findShortestDist(vector<WineryDistance*> distanceList);
+		int findShortestDist();
 
 		vector<Winery*> wineries;
 		vector<winePurchase> boozeList;

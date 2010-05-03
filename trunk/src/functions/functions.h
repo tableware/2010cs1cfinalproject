@@ -92,6 +92,8 @@ void readWine( Winery*& wTemp, int numOfWines, int& wineryCount,
 void readWines( Winery*& wTemp, int numOfWines, int& wineryCount,
 				int& wineryDistanceCount, int& wineCount, int& stringCount);
 
+void outputWineryTable(vector<Winery*> wineryList);
+
 //Templates
 template <class T>
 void Push(T& head, T& newData)
