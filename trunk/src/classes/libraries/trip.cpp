@@ -5,11 +5,15 @@
  *      Author: jgibbins1
  */
 
-//#include "trip.h"
+#include "trip.h"
 
-	//trip::trip(){}
-//	{
-//		subTotal(0)
-//	}
+trip::trip() :
+	subTotal(0),
+	tax(0.0),
+	distanceTraveled(0.0)
+{ }
 
-	//~trip();
+trip::~trip()
+{
+
+}

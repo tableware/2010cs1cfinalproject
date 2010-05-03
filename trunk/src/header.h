@@ -20,10 +20,10 @@
 using namespace std;
 
 // classes
-#include "classes/libraries/trip.h"
 #include "classes/libraries/wine.h"
 #include "classes/libraries/wineryDistance.h"
 #include "classes/libraries/winery.h"
+#include "classes/libraries/trip.h"
 
 #include "classes/drivers/mainDriver.h"
 #include "classes/drivers/adminDriver.h"
