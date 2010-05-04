@@ -15,7 +15,6 @@
 #include <vector>
 #include <limits>
 #include <ios>
-#include <string>
 
 using namespace std;
 
@@ -25,6 +24,7 @@ using namespace std;
 #include "classes/libraries/winery.h"
 #include "classes/libraries/trip.h"
 
+#include "classes/drivers/driver.cpp"
 #include "classes/drivers/mainDriver.h"
 #include "classes/drivers/adminDriver.h"
 
