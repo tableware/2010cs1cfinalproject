@@ -8,24 +8,19 @@
 #ifndef MAINDRIVER_H_
 #define MAINDRIVER_H_
 
+// do all of the forward declares for dependencies so that the compiler won't throw a fucking bitch fit
 class Winery;
 
 namespace wineryProject_drivers
 {
-	// do all of the forward declares for dependencies so that the compiler won't throw a fucking bitch fit
 
-	class mainDriver
+	class mainDriver : driver<mainDriver>
 	{
 		public:
 			/**
 			 * Holds the logic for the main run loop of the application
 			 */
 			void main();
-
-			/**
-			 * Displays the menu
-			 */
-			void menu();
 
 			/**
 			 * Lists the wineries that we know about
@@ -47,22 +42,12 @@ namespace wineryProject_drivers
 			 */
 			void performFileMaintenace();
 
-			/**
-			 * Quits the application
-			 */
-			void quit();
-
 			static mainDriver& getInstance();
 		private:
 			mainDriver();
 			~mainDriver();
 			mainDriver(const mainDriver &);             // left undefined intentionally
 			mainDriver& operator=(const mainDriver &); // left undefined intentionally
-
-			/**
-			 * dictates if we should have an active runloop
-			 */
-			bool active;
 
 			/**
 			 * List of all of the wineries that we will be working with,

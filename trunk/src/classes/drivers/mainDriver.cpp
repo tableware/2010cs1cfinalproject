@@ -2,9 +2,12 @@
 
 int Winery::numOfWineries = 0;
 
-mainDriver::mainDriver() : active(true)
+mainDriver::mainDriver()
 {
-
+	this->_registerMenuItem("View our list of wineries", &mainDriver::listWineries);
+	this->_registerMenuItem("Plan a day trip", &mainDriver::planDayTrip);
+	this->_registerMenuItem("Tour your wineries and purchase wines", &mainDriver::tourWineriesAndPurchaseWines);
+	this->_registerMenuItem("Perform file maintenance (administrator only)", &mainDriver::performFileMaintenace);
 }
 
 mainDriver::~mainDriver()
@@ -72,66 +75,8 @@ void mainDriver::main()
 //	cout << endl << "Place in vector: " << finder << endl;
 
 	// -- END TESTING CODE --//
-	int option = 0;
 
-	// main run loop for the driver
-	do
-	{
-		// display the menu
-		this->menu();
-
-		// input check loop
-		do
-		{
-			cout << "Please make a selection: ";
-			if(!(cin >> option))
-			{
-				cout << "Invalid input.";
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			}
-		} while(option < 1 || option > 5);
-
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-		cout << "\n\n";
-
-		// execute the option
-		switch(option)
-		{
-			case 1:
-				this->listWineries();
-			break;
-
-			case 2:
-				this->planDayTrip();
-			break;
-
-			case 3:
-				this->tourWineriesAndPurchaseWines();
-			break;
-
-			case 4:
-				this->performFileMaintenace();
-			break;
-
-			case 5:
-				this->quit();
-			break;
-		}
-
-		cout << "\n\n";
-
-	} while(this->active);
-}
-
-void mainDriver::menu()
-{
-	cout << "1. View our list of wineries\n"
-		 << "2. Plan a day trip\n"
-		 << "3. Tour your wineries and purchase wines\n"
-		 << "4. Perform file maintenance (administrator only)\n"
-		 << "5. Quit\n\n";
+	driver<mainDriver>::main();
 }
 
 void mainDriver::listWineries()
@@ -185,15 +130,6 @@ void mainDriver::performFileMaintenace()
 	cout << "driver::performFileMaintenace()\n";
 
 	adminDriver::getInstance().main(this->wineries);
-//	adminDriver *admin = new adminDriver(this->wineries);
-//	admin->main();
-//	delete admin;
-}
-
-void mainDriver::quit()
-{
-	// set our state to inactive
-	this->active = false;
 }
 
 mainDriver& mainDriver::getInstance()

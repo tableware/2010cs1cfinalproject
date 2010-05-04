@@ -7,76 +7,42 @@
 #include "adminDriver.h"
 
 adminDriver::adminDriver() :
-	active(true),
-	wineries(NULL)
-{ }
+	wineries(NULL),
+	password("silly llamas")
+{
+	this->_registerMenuItem("Load inital data", &adminDriver::loadInitialData);
+	this->_registerMenuItem("Add new winery", &adminDriver::addWinery);
+	this->_registerMenuItem("Change price of wine", &adminDriver::changePriceOfWine);
+	this->_registerMenuItem("Add new wine to winery", &adminDriver::addWineToWinery);
+}
 
 adminDriver::~adminDriver()
 {
 
 }
 
-void adminDriver::menu()
-{
-	cout << "1. Quit\n"
-		 << "2. Load initial data\n"
-		 << "3. Add new winery\n\n";
-}
+//void adminDriver::menu()
+//{
+//	cout << "1. Load initial data\n"
+//		 << "2. Add new winery\n"
+//		 << "3. Change price of wine\n"
+//		 << "4. Add new wine to winery\n"
+//		 << "5. Quit\n\n";
+//}
 
 void adminDriver::main(vector<Winery*>& wineries)
 {
 	this->wineries = &wineries;
 
-	int option = 0;
+	// validate password
+	string pass;
+	cout << "Password: ";
+	getline(cin, pass);
 
-	// main run loop for the driver
-	do
+	if(pass == this->password)
 	{
-		// display the menu
-		this->menu();
-
-		// input check loop
-		do
-		{
-			cout << "Please make a selection: ";
-			if(!(cin >> option))
-			{
-				cout << "Invalid input.";
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			}
-		} while(option < 1 || option > 3);
-
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-		cout << "\n\n";
-
-		// execute the option
-		switch(option)
-		{
-			case 1:
-				this->quit();
-			break;
-
-			case 2:
-				this->loadInitialData();
-			break;
-
-			case 3:
-				this->addWinery();
-			break;
-		}
-
-		cout << "\n\n";
-
-	} while(this->active);
-}
-
-void adminDriver::quit()
-{
-
-	// set our state to inactive
-	this->active = false;
+		driver<adminDriver>::main();
+	}
 }
 
 void adminDriver::loadInitialData()
@@ -84,71 +50,71 @@ void adminDriver::loadInitialData()
 	cout << "adminDriver::loadInitialData()\n";
 
 	// sample load
-		Winery* tempWinery;
-		WineryDistance* tempDistance;
-		Wine* tempWine;
+	Winery* tempWinery;
+	WineryDistance* tempDistance;
+	Wine* tempWine;
 
-		string temp;
-		string temp2;
-		int tempInt;
-		float tempFloat;
-		ifstream stream;
-		stream.open("src/data/wineries.txt");
+	string temp;
+	string temp2;
+	int tempInt;
+	float tempFloat;
+	ifstream stream;
+	stream.open("src/data/wineries.txt");
 
-		while(stream)
+	while(stream)
+	{
+		tempWinery = new Winery;
+
+		// grab the name
+		getline(stream, temp);
+		tempWinery->setName(temp);
+
+		// grab the number of the Winery
+		getline(stream, temp);
+		tempWinery->setNumber(atoi(temp.c_str()));
+
+		// grab the number of the number of distances
+		getline(stream, temp);
+
+		// loop to grab all of the distances
+		for(int i = 0; i < atoi(temp.c_str()); ++i)
 		{
-			tempWinery = new Winery;
+			stream >> tempInt;
+			stream >> tempFloat;
+			stream.ignore(numeric_limits<streamsize>::max(), '\n');
 
-			// grab the name
-			getline(stream, temp);
-			tempWinery->setName(temp);
+			tempDistance = new WineryDistance(tempInt, tempFloat);
 
-			// grab the number of the Winery
-			getline(stream, temp);
-			tempWinery->setNumber(atoi(temp.c_str()));
-
-			// grab the number of the number of distances
-			getline(stream, temp);
-
-			// loop to grab all of the distances
-			for(int i = 0; i < atoi(temp.c_str()); ++i)
-			{
-				stream >> tempInt;
-				stream >> tempFloat;
-				stream.ignore(numeric_limits<streamsize>::max(), '\n');
-
-				tempDistance = new WineryDistance(tempInt, tempFloat);
-
-				tempWinery->distanceList.push_back(tempDistance);
-			}
-
-			// this is a random float that I have no idea what it's for, I think it may be the distance of the
-			//   winery that we are reading from the main winery that we are supposed to be at...
-			getline(stream, temp);
-
-			// grab the number of wines
-			getline(stream, temp);
-
-			for(int i = 0; i < atoi(temp.c_str()); ++i)
-			{
-				getline(stream, temp2);
-				stream >> tempInt;
-				stream >> tempFloat;
-				stream.ignore(numeric_limits<streamsize>::max(), '\n');
-
-				tempWine = new Wine;
-				tempWine->setName(temp2);
-				tempWine->setYear(tempInt);
-				tempWine->setPrice(tempFloat);
-
-				tempWinery->wineList.push_back(tempWine);
-			}
-
-			this->wineries->push_back(tempWinery);
-
+			tempWinery->distanceList.push_back(tempDistance);
 		}
 
-		stream.close();
+		// this is a random float that I have no idea what it's for, I think it may be the distance of the
+		//   winery that we are reading from the main winery that we are supposed to be at...
+		getline(stream, temp);
+
+		// grab the number of wines
+		getline(stream, temp);
+
+		for(int i = 0; i < atoi(temp.c_str()); ++i)
+		{
+			getline(stream, temp2);
+			stream >> tempInt;
+			stream >> tempFloat;
+			stream.ignore(numeric_limits<streamsize>::max(), '\n');
+
+			tempWine = new Wine;
+			tempWine->setName(temp2);
+			tempWine->setYear(tempInt);
+			tempWine->setPrice(tempFloat);
+
+			tempWinery->wineList.push_back(tempWine);
+		}
+
+		this->wineries->push_back(tempWinery);
+
+	}
+
+	stream.close();
 }
 
 void adminDriver::addWinery()
@@ -221,6 +187,16 @@ void adminDriver::addWinery()
 
 	// add the winery to the list
 	this->wineries->push_back(tempWinery);
+}
+
+void adminDriver::addWineToWinery()
+{
+	cout << "adminDriver::addWinesToWinery()\n";
+}
+
+void adminDriver::changePriceOfWine()
+{
+	cout << "adminDriver::changePriceOfWine()\n";
 }
 
 adminDriver& adminDriver::getInstance()
