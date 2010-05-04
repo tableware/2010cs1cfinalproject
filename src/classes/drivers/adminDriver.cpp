@@ -21,15 +21,6 @@ adminDriver::~adminDriver()
 
 }
 
-//void adminDriver::menu()
-//{
-//	cout << "1. Load initial data\n"
-//		 << "2. Add new winery\n"
-//		 << "3. Change price of wine\n"
-//		 << "4. Add new wine to winery\n"
-//		 << "5. Quit\n\n";
-//}
-
 void adminDriver::main(vector<Winery*>& wineries)
 {
 	this->wineries = &wineries;
@@ -152,7 +143,7 @@ void adminDriver::addWinery()
 
 		cout << "Quantity of Wine: ";
 		getline(cin, temp2);
-		tempWine->setQuantity(atof(temp2.c_str()));
+		tempWine->setQuantity(atoi(temp2.c_str()));
 
 		cout << "Price of Wine: ";
 		getline(cin, temp2);
