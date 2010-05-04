@@ -22,6 +22,7 @@ void mainDriver::main()
 	Winery* temp;
 	WineryDistance* dTemp;
 	Wine* wTemp;
+	trip* tour;
 
 
 	temp = new Winery(1, "Winery Number One");
@@ -31,6 +32,9 @@ void mainDriver::main()
 	wTemp = new Wine("Somewine", .99, 1999, 3);
 	temp->setNumOfWines(1);
 	temp->distanceList.push_back(dTemp);
+	temp->wineList.push_back(wTemp);
+	wTemp = new Wine("Goodone", 5.99, 1988, 2);
+	temp->setNumOfWines(2);
 	temp->wineList.push_back(wTemp);
 	this->wineries.push_back(temp);
 	Winery::numOfWineries++;
@@ -49,18 +53,40 @@ void mainDriver::main()
 	this->wineries.push_back(temp);
 	Winery::numOfWineries++;
 
-	createBinaryFile(this->wineries);
-	this->wineries =(readBinaryFile());
+	tour = new trip;
 
-	this->listWineries();
+	//makes the tour trip winery vector point to the main's winery vector
+	tour->wineries = this->wineries;
+
+	//You will have to select what winery to put in here
+	// If you want to do a new winery, you will have to pop the winePurchase vector
+	tour->setWinesPurchases(this->wineries, 0);
 
 	cout << endl;
-	outputWineryTable(this->wineries);
+	tour->outputTableWineCheckout(0);
+	cout << endl;
+
+	tour->clearPurchases();
+	tour->setWinesPurchases(this->wineries, 1);
+
+	cout << endl;
+	tour->outputTableWineCheckout(1);
 	cout << endl;
 
 	cout << endl;
-	this->wineries[0]->outputWineTable();
+	tour->outputWineryTable();
 	cout << endl;
+
+//	createBinaryFile(this->wineries);
+//	this->wineries =(readBinaryFile());
+
+//	this->listWineries();
+//
+
+//  //dont think we'll need this function cause I eliminated it with checkout
+//	cout << endl;
+//	this->wineries[0]->outputWineTable();
+//	cout << endl;
 
 //	unsigned int finder = FindName(this->wineries[0]->wineList, "Somewine");
 //	if (finder == this->wineries[0]->wineList.size())

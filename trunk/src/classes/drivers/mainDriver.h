@@ -45,7 +45,7 @@ namespace wineryProject_drivers
 			static mainDriver& getInstance();
 		private:
 			mainDriver();
-			~mainDriver();
+			virtual ~mainDriver();
 			mainDriver(const mainDriver &);             // left undefined intentionally
 			mainDriver& operator=(const mainDriver &); // left undefined intentionally
 
