@@ -25,7 +25,7 @@ namespace wineryProject_drivers
 	{
 		public:
 			driver();
-			~driver();
+			virtual ~driver();
 			virtual void main();
 
 		protected:
