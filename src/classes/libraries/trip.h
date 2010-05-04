@@ -13,13 +13,10 @@
 // do a forward declare
 class Winery;
 
+struct winePurchase;
+
 class trip
 {
-	struct winePurchase
-	{
-		Wine* wine;
-		int quantity;
-	};
 
 	public:
 		trip();
@@ -33,8 +30,16 @@ class trip
 
 		int findShortestDist();
 
+		void outputTableWineCheckout(int place);
+
+		void setWinesPurchases(vector<Winery*> mainList, unsigned int loc);
+
+		void clearPurchases();
+
+		void outputWineryTable();
+
 		vector<Winery*> wineries;
-		vector<winePurchase> boozeList;
+		vector<winePurchase*> boozeList;
 
 	private:
 		float subTotal;

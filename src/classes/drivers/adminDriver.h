@@ -26,7 +26,7 @@ namespace wineryProject_drivers
 
 		private:
 			adminDriver();
-			~adminDriver();
+			virtual ~adminDriver();
 			adminDriver(const adminDriver &);			// leave undefined
 			adminDriver& operator=(const adminDriver&);	// leave undefined
 

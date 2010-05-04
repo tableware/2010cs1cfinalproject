@@ -32,4 +32,10 @@ using namespace wineryProject_drivers;
 
 #include "functions/functions.h"
 
+struct winePurchase
+{
+	Wine* wine;
+	int quantity;
+};
+
 #endif /* HEADER_H_ */
