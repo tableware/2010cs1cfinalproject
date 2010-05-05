@@ -28,7 +28,7 @@ class trip
 
 		void process(vector<Winery*> mainList);
 
-		int findShortestDist();
+		int findShortestDist(int loc);
 
 		void outputTableWineCheckout(int place);
 
@@ -37,6 +37,14 @@ class trip
 		void clearPurchases();
 
 		void outputWineryTable();
+
+		void outputWineryTableMaker();
+
+		void resetVisited();
+
+		void setVisitList();
+
+		unsigned int inputCheck();
 
 		vector<Winery*> wineries;
 		vector<winePurchase*> boozeList;
