@@ -3,8 +3,8 @@
 Winery::Winery() :
 	numOfWines(0),
 	number(0),
-	name("")
-
+	name(""),
+	visited(true)
 {
 
 }
@@ -12,7 +12,8 @@ Winery::Winery() :
 Winery::Winery(int number, string name) :
 	numOfWines(0),
 	number(number),
-	name(name)
+	name(name),
+	visited(true)
 
 {
 }

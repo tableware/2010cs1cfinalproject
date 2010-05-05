@@ -26,9 +26,9 @@ void mainDriver::main()
 
 
 	temp = new Winery(1, "Winery Number One");
-	dTemp = new WineryDistance(1,2.34);
+	dTemp = new WineryDistance(1,3.45);
 	temp->distanceList.push_back(dTemp);
-	dTemp = new WineryDistance(2,3.45);
+	dTemp = new WineryDistance(2,0);
 	wTemp = new Wine("Somewine", .99, 1999, 3);
 	temp->setNumOfWines(1);
 	temp->distanceList.push_back(dTemp);
@@ -43,7 +43,7 @@ void mainDriver::main()
 	temp = new Winery();
 	temp->setNumber(2);
 	temp->setName("Winery Number Two");
-	dTemp = new WineryDistance(1,2.34);
+	dTemp = new WineryDistance(1,0);
 	temp->distanceList.push_back(dTemp);
 	dTemp = new WineryDistance(2,3.45);
 	wTemp = new Wine("Otherwine", 9.99, 2100, 1);
@@ -60,21 +60,45 @@ void mainDriver::main()
 
 	//You will have to select what winery to put in here
 	// If you want to do a new winery, you will have to pop the winePurchase vector
-	tour->setWinesPurchases(this->wineries, 0);
+//	tour->setWinesPurchases(this->wineries, 0);
+//
+//	cout << endl;
+//	tour->outputTableWineCheckout(0);
+//	cout << endl;
+//
+//	tour->clearPurchases();
+//	tour->setWinesPurchases(this->wineries, 1);
+//
+//	cout << endl;
+//	tour->outputTableWineCheckout(1);
+//	cout << endl;
 
-	cout << endl;
-	tour->outputTableWineCheckout(0);
+//	cout << endl;
+//	tour->outputWineryTable();
+//	cout << endl;
+
+	tour->setVisitList();
+
+	int tempHolder = 0;
+	tempHolder = tour->findShortestDist(0);
+	while (tempHolder >= 0)
+	{
+		tour->wineries[tempHolder]->setVisited(true);
+		cout << "Visiting " << tour->wineries[tempHolder]->getName() << endl;
+		tempHolder = tour->findShortestDist(0);
+	}
 	cout << endl;
 
-	tour->clearPurchases();
-	tour->setWinesPurchases(this->wineries, 1);
-
-	cout << endl;
-	tour->outputTableWineCheckout(1);
-	cout << endl;
-
-	cout << endl;
-	tour->outputWineryTable();
+	//resetting
+	tour->resetVisited();
+	tour->setVisitList();
+	tempHolder = tour->findShortestDist(0);
+	while (tempHolder >= 0)
+	{
+		tour->wineries[tempHolder]->setVisited(true);
+		cout << "Visiting " << tour->wineries[tempHolder]->getName() << endl;
+		tempHolder = tour->findShortestDist(0);
+	}
 	cout << endl;
 
 //	createBinaryFile(this->wineries);
