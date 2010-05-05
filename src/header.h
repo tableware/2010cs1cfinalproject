@@ -1,9 +1,10 @@
-/*
- * header.h
- *
- *  Created on: Apr 12, 2010
- *      Author: jgibbins1
- */
+/***********************************************************
+* AUTHOR: 		Aaron Cruz, Nobel Gibbin, Anthony Stramer
+* Project 2:	Wine Tour Project
+* CLASS:        CS1C (#13635)
+* SECTION:      Projects
+* Due Date:     5/6/10
+************************************************************/
 
 #ifndef HEADER_H_
 #define HEADER_H_
