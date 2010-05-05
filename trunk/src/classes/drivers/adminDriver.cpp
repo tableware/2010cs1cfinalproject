@@ -238,7 +238,7 @@ void adminDriver::changePriceOfWine()
 		}
 
 		// add the quit option to the menu
-		cout << (*this->wineries)[winery]->wineList + 1 << ". Cancel\n\n";
+		cout << (*this->wineries)[winery]->wineList.size() + 1 << ". Cancel\n\n";
 
 		// input check loop
 		do
