@@ -1,15 +1,18 @@
-/*
- * adminDriver.cpp
- *
- *  Created on: Apr 29, 2010
- *      Author: darkstar1103
- */
+/***********************************************************
+* AUTHOR: 		Aaron Cruz, Nobel Gibbin, Anthony Stramer
+* Project 2:	Wine Tour Project
+* CLASS:        CS1C (#13635)
+* SECTION:      Projects
+* Due Date:     5/6/10
+************************************************************/
+
 #include "adminDriver.h"
 
 adminDriver::adminDriver() :
 	wineries(NULL),
 	password("silly llamas")
 {
+	// register all of the appropriate actions with driver
 	this->_registerMenuItem("Load inital data", &adminDriver::loadInitialData);
 	this->_registerMenuItem("Add new winery", &adminDriver::addWinery);
 	this->_registerMenuItem("Change price of wine", &adminDriver::changePriceOfWine);
@@ -30,8 +33,10 @@ void adminDriver::main(vector<Winery*>& wineries)
 	cout << "Password: ";
 	getline(cin, pass);
 
+	// check to see if we have the right password
 	if(pass == this->password)
 	{
+		// password was good, enter the main run loop for the application
 		driver<adminDriver>::main();
 	}
 }
@@ -183,11 +188,114 @@ void adminDriver::addWinery()
 void adminDriver::addWineToWinery()
 {
 	cout << "adminDriver::addWinesToWinery()\n";
+
+	string temp;
+	unsigned int option;
+
+	option = this->_selectWinery();
+
+	// make sure we didn't get an exit command
+	if(option < this->wineries->size())
+	{
+		Wine* tempWine = new Wine();
+
+		cout << "Name of Wine: ";
+		getline(cin, temp);
+		tempWine->setName(temp);
+
+		cout << "Quantity of Wine: ";
+		getline(cin, temp);
+		tempWine->setQuantity(atoi(temp.c_str()));
+
+		cout << "Price of Wine: ";
+		getline(cin, temp);
+		tempWine->setPrice(atof(temp.c_str()));
+
+		cout << "Year of Wine: ";
+		getline(cin, temp);
+		tempWine->setYear(atoi(temp.c_str()));
+
+		(*this->wineries)[option]->wineList.push_back(tempWine);
+	}
 }
 
 void adminDriver::changePriceOfWine()
 {
 	cout << "adminDriver::changePriceOfWine()\n";
+
+	string temp;
+	unsigned int winery;
+	unsigned int wine;
+
+	winery = this->_selectWinery();
+
+	if(winery < this->wineries->size())
+	{
+		// loop and output the menu
+		for (unsigned int i = 0; i < (*this->wineries)[winery]->wineList.size(); ++i)
+		{
+			cout << i + 1 << ". " << (*this->wineries)[winery]->wineList[i]->getName() << "\n";
+		}
+
+		// add the quit option to the menu
+		cout << (*this->wineries)[winery]->wineList + 1 << ". Cancel\n\n";
+
+		// input check loop
+		do
+		{
+			cout << "Please make a selection: ";
+			if(!(cin >> wine))
+			{
+				cout << "Invalid input.";
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			}
+		} while(wine < 1 || wine > (*this->wineries)[winery]->wineList.size() + 1);
+
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+		--wine;
+
+		if(wine < (*this->wineries)[winery]->wineList.size())
+		{
+			cout << "Old price of wine: " << (*this->wineries)[winery]->wineList[wine]->getPrice() << endl;
+			cout << "New price of wine: ";
+			getline(cin, temp);
+			(*this->wineries)[winery]->wineList[wine]->setPrice(atof(temp.c_str()));
+
+		}
+	}
+
+}
+
+unsigned int adminDriver::_selectWinery()
+{
+	unsigned int option;
+
+	// loop and output the menu
+	for (unsigned int i = 0; i < this->wineries->size(); ++i)
+	{
+		cout << i + 1 << ". " << (*this->wineries)[i]->getName() << "\n";
+	}
+
+	// add the quit option to the menu
+	cout << this->wineries->size() + 1 << ". Cancel\n\n";
+
+	// input check loop
+	do
+	{
+		cout << "Please make a selection: ";
+		if(!(cin >> option))
+		{
+			cout << "Invalid input.";
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+	} while(option < 1 || option > this->wineries->size() + 1);
+
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+	return option - 1;
 }
 
 adminDriver& adminDriver::getInstance()
