@@ -323,7 +323,7 @@ void adminDriver::printHeader()
 	cout << '*' << setfill(' ')<< right << setw(58) << "Administrator Menu"
 		 << setfill(' ') << setw(37) << '*' << endl;
 
-	cout << ' ' << setfill('*')<< setw(95) << ' ' << endl;
+	cout << ' ' << setfill('*')<< setw(95) << ' ' << setfill(' ') << endl;
 
 	cout << "\n\n";
 }
