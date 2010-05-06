@@ -1,6 +1,10 @@
-/*
- * Contains all of the functions for the driver of the class
- */
+/***********************************************************
+* AUTHOR: 		Aaron Cruz, Nobel Gibbin, Anthony Stramer
+* Project 2:	Wine Tour Project
+* CLASS:        CS1C (#13635)
+* SECTION:      Projects
+* Due Date:     5/6/10
+************************************************************/
 
 #include "../../header.h"
 
@@ -26,11 +30,6 @@ namespace wineryProject_drivers
 			 * Lists the wineries that we know about
 			 */
 			void listWineries();
-
-			/**
-			 *	Holds all of the logic to plan a day trip
-			 */
-			void planDayTrip();
 
 			/**
 			 * Holds the logic to for touring wineries and purchasing wines
