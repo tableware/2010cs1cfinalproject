@@ -55,7 +55,13 @@ namespace wineryProject_drivers
 			 */
 			vector<Winery*> wineries;
 
+			/**
+			 * Prints out heading for the User interface in the command prompt
+			 * including the program title, revision number, etc.
+			 */
+			virtual void printHeader();
 		private:
+
 			/**
 			 * Registers all of the menu actions with the driver class
 			 */

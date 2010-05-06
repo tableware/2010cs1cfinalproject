@@ -303,3 +303,28 @@ adminDriver& adminDriver::getInstance()
 	static adminDriver instance;
 	return instance;
 }
+
+void adminDriver::printHeader(){
+	cout << endl;
+
+		cout << ' ' << setfill('*')<< setw(95) << ' ' << endl;
+
+		cout << '*' << setfill(' ') << right <<  setw(60)  << "Welcome to Canyon Villa";
+		cout << setfill(' ') << setw(35) << '*' << endl;
+
+		cout << '*' << setfill(' ') << right <<  setw(56)  << "Paso Robles, CA";
+		cout << setfill(' ') << setw(39) << '*' << endl;
+
+		cout << '*' << setfill(' ')  << right <<  setw(69) << "Computer Science 1C: Advanced Programming";
+		cout << setfill(' ') << setw(26) << '*' << endl;
+
+		cout << '*' << setfill(' ')<< right <<  setw(59)  << "Version 1.00 5/4/2010";
+		cout << setfill(' ') << setw(36) << '*' << endl;
+
+		cout << '*' << setfill(' ')<< right << setw(58) << "Administrator Menu"
+			 << setfill(' ') << setw(37) << '*' << endl;
+
+		cout << ' ' << setfill('*')<< setw(95) << ' ' << endl;
+
+		cout << "\n\n";
+}

@@ -25,6 +25,8 @@ namespace wineryProject_drivers
 	template <class type>
 	void driver<type>::menu()
 	{
+		system("cls");
+		this->printHeader();
 		// loop and output the menu
 		for (unsigned int i = 0; i < this->_driverMenu.size(); ++i)
 		{
@@ -76,6 +78,10 @@ namespace wineryProject_drivers
 				(type::getInstance().*(this->_driverMenu[option - 1]->processFunction))();
 			}
 
+
+			if(option != this->_driverMenu.size() + 1)
+				this->keyContinue();
+
 			cout << "\n\n";
 
 		} while(this->active);
@@ -102,4 +108,21 @@ namespace wineryProject_drivers
 		//   on the next iteration of the run loop
 		this->active = false;
 	}
+
+	template <class type>
+	void driver<type>::keyContinue(){
+
+		//Output Message
+		cout << "\n\nPress Enter key to continue." << endl;
+		//Input Key
+		cin.get();
+		//Clear output screen in CMD.exe and continue
+		system("cls");
+	}
+
+	template <class type>
+	void driver<type>::printHeader(){
+	}
+
+
 }
