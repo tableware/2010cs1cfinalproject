@@ -130,7 +130,7 @@ void trip::makeAllUnvisited()
 	}
 }
 
-int trip::findShortestDist(int loc)
+int trip::findShortestDist(int loc, bool firstInstance)
 {
 	float shortestDist;
 
@@ -143,18 +143,39 @@ int trip::findShortestDist(int loc)
 		{
 			positionHolder = position;
 			foundFirstInstance = true;
-			shortestDist = this->wineries[loc]->distanceList[position]->getDistance();
+			if (firstInstance)
+			{
+				shortestDist = this->wineries[position]->getDistance();
+			}
+			else
+			{
+				shortestDist = this->wineries[loc]->distanceList[position]->getDistance();
+			}
+
 		}
 		position++;
 	}
 	while (position < this->wineries.size())
 	{
-		if (shortestDist > this->wineries[loc]->distanceList[position]->getDistance()
-			&& !this->wineries[position]->getVisited())
+		if (firstInstance)
 		{
-			positionHolder = position;
-			shortestDist = this->wineries[loc]->distanceList[position]->getDistance();
+			if (shortestDist > this->wineries[position]->getDistance()
+								&& !this->wineries[position]->getVisited())
+			{
+				positionHolder = position;
+				shortestDist = this->wineries[position]->getDistance();
+			}
 		}
+		else
+		{
+			if (shortestDist > this->wineries[loc]->distanceList[position]->getDistance()
+				&& !this->wineries[position]->getVisited())
+			{
+				positionHolder = position;
+				shortestDist = this->wineries[loc]->distanceList[position]->getDistance();
+			}
+		}
+
 		position++;
 	}
 
@@ -309,12 +330,12 @@ vector<int> trip::setNumberVisitList(int choice)
 	int counter = 0;
 	this->makeAllUnvisited();
 
-	position = this->findShortestDist(counter++);
+	position = this->findShortestDist(counter++, true);
 	placesToVisit.push_back(position);
 	this->wineries[position]->setVisited(true);
 	while (counter < choice)
 	{
-		position = this->findShortestDist(position);
+		position = this->findShortestDist(position, false);
 		placesToVisit.push_back(position);
 		this->wineries[position]->setVisited(true);
 		counter++;
@@ -437,7 +458,6 @@ void trip::touring(vector<Winery*> mainList)
 	float subtotal;
 	int choice;
 	int num;
-	//bool loop;
 	vector<int> placesToVisit;
 
 	this->wineries = mainList;
@@ -472,7 +492,7 @@ void trip::touring(vector<Winery*> mainList)
 		else
 		{
 			this->setVisitList();
-			num = this->findShortestDist(0);
+			num = this->findShortestDist(0, true);
 			while (num >= 0)
 			{
 
@@ -489,7 +509,7 @@ void trip::touring(vector<Winery*> mainList)
 				this->total = 0;
 
 				this->wineries[num]->setVisited(true);
-				num = this->findShortestDist(num);
+				num = this->findShortestDist(num, false);
 			}
 			cout << endl;
 		}
