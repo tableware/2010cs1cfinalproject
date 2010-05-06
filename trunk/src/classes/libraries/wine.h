@@ -29,23 +29,51 @@ class Wine
 		 */
 		~Wine();
 
+		/**
+		 * Sets the name of the wine
+		 */
 		void setName(string name);
+
+		/**
+		 * Returns the name of the wine
+		 */
 		string getName();
 
+		/**
+		 * Sets the price of the wine
+		 */
 		void setPrice(float price);
+
+		/**
+		 * Returns the price of the wine
+		 */
 		float getPrice();
 
+		/**
+		 * Sets the year that the wine was produced
+		 */
 		void setYear(int year);
+
+		/**
+		 * Returns the year that the wine was produced
+		 */
 		int getYear();
 
-		void setQuantity(int quantity);
-		int getQuantity();
-
 	private:
-		string name;			//name of wine
+		/**
+		 * Name of the wine
+		 */
+		string name;
+
+		/**
+		 * Price of the wine
+		 */
 		float price;
+
+		/**
+		 * Year of the wine
+		 */
 		int year;
-		int quantity;			//used only for output/calculations - set to 0; change only in temp class stack
 };
 
 #endif /* WINE_H_ */
