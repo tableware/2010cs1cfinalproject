@@ -14,8 +14,19 @@
 class Wine
 {
 	public:
+		/**
+		 * Empty class constructor
+		 */
 		Wine();
+
+		/**
+		 * Initalizes the class with the specified values
+		 */
 		Wine(string name, float price, int year, int quantity);
+
+		/**
+		 * Class distructor
+		 */
 		~Wine();
 
 		void setName(string name);

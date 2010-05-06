@@ -10,8 +10,10 @@
 
 int main()
 {
+	string filename = "src/data/persistence.dat";
+	mainDriver::getInstance().wineries = binaryFileRead(filename);
 	// run the application
 	mainDriver::getInstance().main();
-
+	binaryFileWrite(filename, mainDriver::getInstance().wineries);
 	return 0;
 }
