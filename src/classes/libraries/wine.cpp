@@ -2,8 +2,7 @@
 
 Wine::Wine() : name(""),
 			   price(0.0),
-			   year(0),
-			   quantity(0)
+			   year(0)
 {
 
 }
@@ -11,8 +10,7 @@ Wine::Wine() : name(""),
 Wine::Wine(string name, float price, int year, int quantity) :
 		name(name),
 		price(price),
-		year(year),
-		quantity(quantity)
+		year(year)
 {
 
 }
@@ -50,14 +48,4 @@ void Wine::setYear(int year)
 int Wine::getYear()
 {
 	return this->year;
-}
-
-void Wine::setQuantity(int quantity)
-{
-	this->quantity = quantity;
-}
-
-int Wine::getQuantity()
-{
-	return this->quantity;
 }

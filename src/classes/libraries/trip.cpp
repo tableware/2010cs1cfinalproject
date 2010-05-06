@@ -255,6 +255,7 @@ unsigned int trip::inputCheck()
 			cout << "\nInvalid input.\n\n";
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			option = this->wineries.size()+1;
 		}
 	} while(option < 0 || option > this->wineries.size());
 
@@ -267,9 +268,9 @@ int trip::tourSelect()
 {
 	int choice;
 
-	cout << "1 - Select the number number of wineries you want to tour\n"
-			"2 - Make your own tour\n"
-			"0 - Exit\n\n";
+	cout << "1. Select the number of wineries you want to tour\n"
+			"2. Make your own tour\n"
+			"0. Exit\n\n";
 	do
 	{
 		cout << "Make a selection: ";
@@ -278,6 +279,7 @@ int trip::tourSelect()
 			cout << "\nInvalid input.\n\n";
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			choice = -1;
 		}
 	}while (choice < 0 || choice > 2);
 
@@ -308,12 +310,13 @@ unsigned int trip::makeNumberTripSelect()
 
 	do
 	{
-		cout << "Select the number of wineries you want to visit(0 to exit): ";
+		cout << "Select the number of wineries you want to visit (0 to exit): ";
 		if(!(cin >> choice))
 		{
 			cout << "\nInvalid input.\n\n";
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			choice = this->wineries.size()+1;
 		}
 	}while (choice < 0 || choice > this->wineries.size());
 
@@ -419,6 +422,7 @@ unsigned int trip::wineNumberSelect()
 			cout << "\nInvalid input.\n\n";
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			choice = this->boozeList.size()+1;
 		}
 	}while (choice < 0 || choice > this->boozeList.size());
 
