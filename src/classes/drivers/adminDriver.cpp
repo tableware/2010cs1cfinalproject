@@ -43,8 +43,6 @@ void adminDriver::main(vector<Winery*>& wineries)
 
 void adminDriver::loadInitialData()
 {
-	cout << "adminDriver::loadInitialData()\n";
-
 	// sample load
 	Winery* tempWinery;
 	WineryDistance* tempDistance;
@@ -88,6 +86,7 @@ void adminDriver::loadInitialData()
 		// this is a random float that I have no idea what it's for, I think it may be the distance of the
 		//   winery that we are reading from the main winery that we are supposed to be at...
 		getline(stream, temp);
+		tempWinery->setDistance(atof(temp.c_str()));
 
 		// grab the number of wines
 		getline(stream, temp);
@@ -116,7 +115,6 @@ void adminDriver::loadInitialData()
 
 void adminDriver::addWinery()
 {
-	cout << "adminDriver::addWinery()\n";
 
 	Winery* tempWinery = new Winery();
 	WineryDistance* tempDistance;
@@ -189,8 +187,6 @@ void adminDriver::addWinery()
 
 void adminDriver::addWineToWinery()
 {
-	cout << "adminDriver::addWinesToWinery()\n";
-
 	string temp;
 	unsigned int option;
 
@@ -223,7 +219,6 @@ void adminDriver::addWineToWinery()
 
 void adminDriver::changePriceOfWine()
 {
-	cout << "adminDriver::changePriceOfWine()\n";
 
 	string temp;
 	unsigned int winery;
@@ -303,30 +298,32 @@ unsigned int adminDriver::_selectWinery()
 adminDriver& adminDriver::getInstance()
 {
 	static adminDriver instance;
+
 	return instance;
 }
 
-void adminDriver::printHeader(){
+void adminDriver::printHeader()
+{
 	cout << endl;
 
-		cout << ' ' << setfill('*')<< setw(95) << ' ' << endl;
+	cout << ' ' << setfill('*')<< setw(95) << ' ' << endl;
 
-		cout << '*' << setfill(' ') << right <<  setw(60)  << "Welcome to Canyon Villa";
-		cout << setfill(' ') << setw(35) << '*' << endl;
+	cout << '*' << setfill(' ') << right <<  setw(60)  << "Welcome to Canyon Villa";
+	cout << setfill(' ') << setw(35) << '*' << endl;
 
-		cout << '*' << setfill(' ') << right <<  setw(56)  << "Paso Robles, CA";
-		cout << setfill(' ') << setw(39) << '*' << endl;
+	cout << '*' << setfill(' ') << right <<  setw(56)  << "Paso Robles, CA";
+	cout << setfill(' ') << setw(39) << '*' << endl;
 
-		cout << '*' << setfill(' ')  << right <<  setw(69) << "Computer Science 1C: Advanced Programming";
-		cout << setfill(' ') << setw(26) << '*' << endl;
+	cout << '*' << setfill(' ')  << right <<  setw(69) << "Computer Science 1C: Advanced Programming";
+	cout << setfill(' ') << setw(26) << '*' << endl;
 
-		cout << '*' << setfill(' ')<< right <<  setw(59)  << "Version 1.00 5/4/2010";
-		cout << setfill(' ') << setw(36) << '*' << endl;
+	cout << '*' << setfill(' ')<< right <<  setw(59)  << "Version 1.00 5/4/2010";
+	cout << setfill(' ') << setw(36) << '*' << endl;
 
-		cout << '*' << setfill(' ')<< right << setw(58) << "Administrator Menu"
-			 << setfill(' ') << setw(37) << '*' << endl;
+	cout << '*' << setfill(' ')<< right << setw(58) << "Administrator Menu"
+		 << setfill(' ') << setw(37) << '*' << endl;
 
-		cout << ' ' << setfill('*')<< setw(95) << ' ' << endl;
+	cout << ' ' << setfill('*')<< setw(95) << ' ' << endl;
 
-		cout << "\n\n";
+	cout << "\n\n";
 }

@@ -24,7 +24,7 @@ void mainDriver::main()
 	Wine* wTemp;
 	trip* tour;
 
-	temp = new Winery(1, "Winery Number One");
+	temp = new Winery(1, "Winery Number One", 0.0);
 	dTemp = new WineryDistance(1,3.45);
 	temp->distanceList.push_back(dTemp);
 	dTemp = new WineryDistance(2,1);
