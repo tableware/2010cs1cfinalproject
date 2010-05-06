@@ -17,14 +17,58 @@ mainDriver::~mainDriver()
 
 void mainDriver::main()
 {
-
-//	// --   TESTING CODE  -- //
-//	// This code is meant to demonstrate how to populate our wineries
+	// --   TESTING CODE  -- //
+	// This code is meant to demonstrate how to populate our wineries
 //	Winery* temp;
 //	WineryDistance* dTemp;
 //	Wine* wTemp;
 //	trip* tour;
+//
+//	temp = new Winery(1, "Winery Number One", 0.0);
+//	dTemp = new WineryDistance(1,3.45);
+//	temp->distanceList.push_back(dTemp);
+//	dTemp = new WineryDistance(2,1);
+//	wTemp = new Wine("Somewine", .99, 1999, 3);
+//	temp->distanceList.push_back(dTemp);
+//	temp->wineList.push_back(wTemp);
+//	wTemp = new Wine("Goodone", 5.99, 1988, 2);
+//	temp->wineList.push_back(wTemp);
+//	this->wineries.push_back(temp);
+//
+//	// we can reassign temp since we now assume the vector owns the memory
+//	temp = new Winery();
+//	temp->setNumber(2);
+//	temp->setName("Winery Number Two");
+//	dTemp = new WineryDistance(1,5);
+//	temp->distanceList.push_back(dTemp);
+//	dTemp = new WineryDistance(2,3.45);
+//	wTemp = new Wine("Otherwine", 9.99, 2100, 1);
+//	//temp->setNumOfWines(1);
+//	temp->wineList.push_back(wTemp);
+//	temp->distanceList.push_back(dTemp);
+//	this->wineries.push_back(temp);
+//
+//	tour = new trip;
+	//this->listWineries();
 
+	//makes the tour trip winery vector point to the main's winery vector
+	//tour->wineries = this->wineries;
+
+	//You will have to select what winery to put in here
+	// If you want to do a new winery, you will have to pop the winePurchase vector
+
+//	int x = tour->makeNumberTripSelect();
+//	cout << "exited make number select" << endl;
+//	tour->setNumberVisitList(x);
+	//cout << "Distance Traveled: " << tour->getDistanceTraveled() << endl;
+
+//	cout << "size: " << this->wineries.size() << endl;
+//
+//	tour->touring(this->wineries);
+
+//	tour->setWinesPurchases(this->wineries, 0);
+////
+//	tour->winePurchases(0);
 //
 //	temp = new Winery(1, "Winery Number One", 0.0);
 //	dTemp = new WineryDistance(1,3.45);
@@ -341,7 +385,7 @@ void mainDriver::printHeader(){
 		cout << '*' << setfill(' ')<< right << setw(55) << "Main Menu"
 			 << setfill(' ') << setw(40) << '*' << endl;
 
-		cout << ' ' << setfill('*')<< setw(95) << ' ' << endl;
+		cout << ' ' << setfill('*')<< setw(95) << ' ' << setfill(' ') << endl;
 
 		cout << "\n\n";
 }
