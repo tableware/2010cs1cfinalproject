@@ -19,9 +19,12 @@ class trip
 {
 
 	public:
-		trip();
-		~trip();
+		trip(); //default trip constructor
+		~trip(); //trip deconstructor
 
+		/*
+		 * Gets
+		 */
 		float getSubTotal();
 		float getTax();
 		float getTotal();
@@ -32,7 +35,7 @@ class trip
 
 		void process(vector<Winery*> mainList);
 
-		int findShortestDist(int loc);
+		int findShortestDist(int loc, bool firstInstance);
 
 		void outputTableWineCheckout(int place);
 
