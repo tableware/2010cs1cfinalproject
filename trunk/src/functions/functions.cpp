@@ -7,6 +7,289 @@
 
 #include "../header.h"
 
+vector<Winery*> binaryFileRead(string filename)
+{
+	ifstream binaryFile(filename.c_str(), ios::binary);
+
+	binaryWinery currentWinery;
+	binaryWineDistance currentWineDistance;
+	binaryWine currentWine;
+
+	vector<Winery*> wineries;
+	Winery* tempWinery;
+	Wine* tempWine;
+	WineryDistance* tempWineryDistance;
+
+	unsigned int size;
+
+	if(binaryFile.is_open())
+	{
+		binaryFile.read((char*)&size, sizeof(size));
+
+		for(unsigned int i = 0; i < size; ++i)
+		{
+			// read the infomration
+			binaryFile.read((char*)&currentWinery, sizeof(currentWinery));
+
+			tempWinery = new Winery;
+			tempWinery->setNumber(currentWinery.number);
+			tempWinery->setName(currentWinery.name);
+
+			//cout << "[winery: " << currentWinery.number << "] " << currentWinery.name << endl;
+			for(unsigned int wine = 0; wine < currentWinery.wines; ++wine)
+			{
+				// write the information for the current wine
+				binaryFile.read((char*)&currentWine, sizeof(currentWine));
+
+				//cout << "  [Wine]\n";
+				//cout << "  + " << currentWine.name << endl;
+				//cout << "  + " << currentWine.price << endl;
+				//cout << "  + " << currentWine.year << endl;
+
+				tempWine = new Wine;
+				tempWine->setName(currentWine.name);
+				tempWine->setPrice(currentWine.price);
+				tempWine->setYear(currentWine.year);
+
+				tempWinery->wineList.push_back(tempWine);
+				tempWine = NULL;
+			}
+
+			for(unsigned int distance = 0; distance < currentWinery.distances; ++distance)
+			{
+				// write the information for the current wineDistance;
+				binaryFile.read((char*)&currentWineDistance, sizeof(currentWineDistance));
+
+				//cout << "  [Distance]\n";
+				//cout << "  + " << currentWineDistance.number << endl;
+				//cout << "  + " << currentWineDistance.distance << endl;
+				tempWineryDistance = new WineryDistance;
+				tempWineryDistance->setNumber(currentWineDistance.number);
+				tempWineryDistance->setDistance(currentWineDistance.distance);
+
+				tempWinery->distanceList.push_back(tempWineryDistance);
+				tempWineryDistance = NULL;
+			}
+
+			wineries.push_back(tempWinery);
+			tempWinery = NULL;
+		}
+	}
+
+	binaryFile.close();
+
+	return wineries;
+}
+
+void binaryFileWrite(string filename, vector<Winery*> wineries)
+{
+	ofstream binaryFile(filename.c_str(), ios::binary);
+	binaryWinery currentWinery;
+	binaryWineDistance currentWineDistance;
+	binaryWine currentWine;
+	unsigned int size = wineries.size();
+
+	// write down how many wineries we have
+	binaryFile.write((char*)&size, sizeof(size));
+
+	for(unsigned int winery = 0; winery < wineries.size(); ++winery)
+	{
+		// load the information
+		currentWinery.number    = wineries[winery]->getNumber();
+		strncpy(currentWinery.name, wineries[winery]->getName().c_str(), strlen(wineries[winery]->getName().c_str()));
+		currentWinery.distances = wineries[winery]->distanceList.size();
+		currentWinery.wines     = wineries[winery]->wineList.size();
+
+		// write the information for the current winery
+		binaryFile.write((char*)&currentWinery, sizeof(currentWinery));
+
+		for(unsigned int wine = 0; wine < currentWinery.wines; ++wine)
+		{
+			strncpy(currentWine.name, wineries[winery]->wineList[wine]->getName().c_str(), strlen(wineries[winery]->wineList[wine]->getName().c_str()));
+			currentWine.price = wineries[winery]->wineList[wine]->getPrice();
+			currentWine.year  = wineries[winery]->wineList[wine]->getYear();
+
+			// write the information for the current wine
+			binaryFile.write((char*)&currentWine, sizeof(currentWine));
+		}
+
+		for(unsigned int distance = 0; distance < currentWinery.distances; ++distance)
+		{
+			currentWineDistance.number   = wineries[winery]->distanceList[distance]->getNumber();
+			currentWineDistance.distance = wineries[winery]->distanceList[distance]->getDistance();
+
+			// write the information for the current wineDistance;
+			binaryFile.write((char*)&currentWineDistance, sizeof(currentWineDistance));
+		}
+	}
+
+	binaryFile.close();
+}
+/*void binaryFileRead(string filename, vector<Winery*> wineries)
+{
+	fstream binaryFile;
+
+	int wineryNumber;
+	string wineryName;
+	unsigned int wineryNameSize;
+
+	unsigned int distances;
+	int distanceWineryNumber;
+	float distanceDistance;
+
+	unsigned int wines;
+	char* wineName;
+	float winePrice;
+	int wineYear;
+
+	binaryFile.open(filename.c_str(), ios::in | ios::binary);
+
+
+	char letter;
+	// loop through all of the wineries
+	while(binaryFile.peek())
+	{
+		binaryFile.read((char*)&wineryNumber, sizeof(wineryNumber));
+		binaryFile.read((char*)&wineryNameSize, sizeof(wineryNameSize));
+
+		for(unsigned int nameSize = letter; nameSize > 0; --nameSize)
+		{
+			binaryFile.read((char*)&letter, sizeof(letter));
+			cout << letter;
+		}
+
+		cout << wineryNumber << "|" << wineryName << "|" << wineryNameSize << endl;
+
+		break;
+//		// number of distances that we will write
+//		binaryFile.read((char*)&distances, sizeof(distances));
+//		cout << "[dist]" << distances << endl;
+//
+//		for(unsigned int wineryDistance = 0;
+//			wineryDistance < distances;
+//			++wineryDistance)
+//		{
+//			binaryFile.read((char*)&distanceWineryNumber, sizeof(distanceWineryNumber));
+//			binaryFile.read((char*)&distanceDistance, sizeof(distanceDistance));
+//			cout << distanceWineryNumber << " " << distanceDistance << endl;
+//
+//		}
+//
+//
+//		binaryFile.write((char*)&wines, sizeof(wines));
+//		cout << "[wines]" << wines << endl;
+//
+//		// number of wines
+//		for(unsigned int wine = 0; wine < wines; ++wine)
+//		{
+//			//wineName = new char[wineries[winery]->wineList[wine]->getName().length()];
+//			strcpy(wineName, wineries[winery]->wineList[wine]->getName().c_str());
+//			winePrice = wineries[winery]->wineList[wine]->getPrice();
+//			wineYear = wineries[winery]->wineList[wine]->getYear();
+//
+//			cout << sizeof(wineName) << wineName << " " << winePrice << " " << wineYear << endl;
+//		}
+	}
+
+	// write out the number of wineries
+
+
+	binaryFile.close();
+}*/
+
+/*void binaryFileWrite(string filename, vector<Winery*> wineries)
+{
+	fstream binaryFile;
+
+	int wineryNumber;
+	char* wineryName;
+	unsigned int wineryNameSize;
+
+	unsigned int distances;
+	int distanceWineryNumber;
+	float distanceDistance;
+
+	unsigned int wines;
+	char* wineName;
+	float winePrice;
+	int wineYear;
+
+	//unsigned int numberOfWineries;
+	//numberOfWineries = wineries.size();
+
+
+	*
+	 * int numOfWines;
+		int number;
+		string name;
+		bool visited;
+
+	binaryFile.open(filename.c_str(), ios::out | ios::binary);
+
+	//cout << wineries.size() << endl;
+
+	// loop through all of the wineries
+	for(unsigned int winery = 0; winery < wineries.size(); ++winery)
+	{
+		wineryNumber   = wineries[winery]->getNumber();
+
+		wineryName = new char[wineries[winery]->getName().length()];
+		strcpy(wineryName, wineries[winery]->getName().c_str());
+		wineryNameSize = wineries[winery]->getName().length();
+
+		cout << wineryNumber << "|" << wineryName << "|" << wineryNameSize << endl;
+
+		binaryFile.write((char*)&wineryNumber, sizeof(wineryNumber));
+		binaryFile.write((char*)&wineryNameSize, sizeof(wineryNameSize));
+		for(unsigned int i = wineryNameSize; i > 0; --i)
+		{
+			binaryFile.write((char*)&wineries[winery]->getName().c_str()[i], sizeof(wineries[winery]->getName().c_str()[i]));
+		}
+
+		// number of distances that we will write
+		distances = wineries[winery]->distanceList.size();
+
+		binaryFile.write((char*)&distances, sizeof(distances));
+		cout << "[dist]" << distances << endl;
+
+		for(unsigned int wineryDistance = 0;
+		    wineryDistance < distances;
+		    ++wineryDistance)
+		{
+			distanceWineryNumber = wineries[winery]->distanceList[wineryDistance]->getNumber();
+			distanceDistance = wineries[winery]->distanceList[wineryDistance]->getDistance();
+
+			cout << distanceWineryNumber << " " << distanceDistance << endl;
+			binaryFile.write((char*)&distanceWineryNumber, sizeof(distanceWineryNumber));
+			binaryFile.write((char*)&distanceDistance, sizeof(distanceDistance));
+
+		}
+
+		wines = wineries[winery]->wineList.size();
+
+		cout << "[wines]" << wines << endl;
+		binaryFile.write((char*)&wines, sizeof(wines));
+
+		// number of wines
+		for(unsigned int wine = 0; wine < wines; ++wine)
+		{
+			wineName = new char[wineries[winery]->wineList[wine]->getName().length()];
+			strcpy(wineName, wineries[winery]->wineList[wine]->getName().c_str());
+			winePrice = wineries[winery]->wineList[wine]->getPrice();
+			wineYear = wineries[winery]->wineList[wine]->getYear();
+
+			cout << sizeof(wineName) << wineName << " " << winePrice << " " << wineYear << endl;
+		}
+	}
+
+	// write out the number of wineries
+
+
+	binaryFile.close();
+}*/
+
+
+
 int returnByteWinery(int val)
 {
 	return sizeof(Winery) * val;

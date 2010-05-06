@@ -42,12 +42,10 @@ namespace wineryProject_drivers
 			 */
 			void performFileMaintenace();
 
+			/**
+			 * Gets the application wide instance of the class
+			 */
 			static mainDriver& getInstance();
-		private:
-			mainDriver();
-			virtual ~mainDriver();
-			mainDriver(const mainDriver &);             // left undefined intentionally
-			mainDriver& operator=(const mainDriver &); // left undefined intentionally
 
 			/**
 			 * List of all of the wineries that we will be working with,
@@ -56,6 +54,29 @@ namespace wineryProject_drivers
 			 * it when you try to subclass vector
 			 */
 			vector<Winery*> wineries;
+
+		private:
+			/**
+			 * Registers all of the menu actions with the driver class
+			 */
+			mainDriver();
+
+			/**
+			 * Handles the destruction of the class
+			 */
+			virtual ~mainDriver();
+
+			/**
+			 * Used to implement singleton pattern, left undefined intentionally
+			 */
+			mainDriver(const mainDriver &);
+
+			/**
+			 * Used to implement singleton pattern, left undefined intentionally
+			 */
+			mainDriver& operator=(const mainDriver &);
+
+
 	};
 }
 #endif /* MAINDRIVER_H_ */

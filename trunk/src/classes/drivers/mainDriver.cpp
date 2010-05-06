@@ -8,6 +8,7 @@ mainDriver::mainDriver()
 	this->_registerMenuItem("Plan a day trip", &mainDriver::planDayTrip);
 	this->_registerMenuItem("Tour your wineries and purchase wines", &mainDriver::tourWineriesAndPurchaseWines);
 	this->_registerMenuItem("Perform file maintenance (administrator only)", &mainDriver::performFileMaintenace);
+
 }
 
 mainDriver::~mainDriver()
@@ -17,7 +18,7 @@ mainDriver::~mainDriver()
 
 void mainDriver::main()
 {
-	// --   TESTING CODE  -- //
+	/*// --   TESTING CODE  -- //
 	// This code is meant to demonstrate how to populate our wineries
 	Winery* temp;
 	WineryDistance* dTemp;
@@ -56,7 +57,7 @@ void mainDriver::main()
 	tour = new trip;
 
 	//makes the tour trip winery vector point to the main's winery vector
-	tour->wineries = this->wineries;
+	tour->wineries = this->wineries;*/
 
 	//You will have to select what winery to put in here
 	// If you want to do a new winery, you will have to pop the winePurchase vector
@@ -77,7 +78,7 @@ void mainDriver::main()
 //	tour->outputWineryTable();
 //	cout << endl;
 
-	tour->setVisitList();
+	/*tour->setVisitList();
 
 	int tempHolder = 0;
 	tempHolder = tour->findShortestDist(0);
@@ -99,7 +100,7 @@ void mainDriver::main()
 		cout << "Visiting " << tour->wineries[tempHolder]->getName() << endl;
 		tempHolder = tour->findShortestDist(0);
 	}
-	cout << endl;
+	cout << endl;*/
 
 //	createBinaryFile(this->wineries);
 //	this->wineries =(readBinaryFile());

@@ -10,7 +10,30 @@
 
 #include "../header.h"
 
+struct binaryWinery
+{
+	int number;
+	unsigned int distances;
+	unsigned int wines;
+	char name[50];
+};
+
+struct binaryWineDistance
+{
+	int number;
+	float distance;
+};
+
+struct binaryWine
+{
+	float price;
+	int year;
+	char name[50];
+};
+
 //Global Functions
+vector<Winery*> binaryFileRead(string filename);
+void binaryFileWrite(string filename, vector<Winery*> wineries);
 
 /********************************************************
  * Function - MakeList
