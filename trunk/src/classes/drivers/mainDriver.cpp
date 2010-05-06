@@ -135,89 +135,113 @@ void mainDriver::listWineries()
 	cout << "driver::listWineries()\n";
 
 	cout << "Wineres size is: " << this->wineries.size() << endl;
-	for (unsigned int i = 0; i < this->wineries.size(); i+=2)
-	{
+	if(this->wineries.size() != 0){
+		for (unsigned int i = 0; i < this->wineries.size()-1; i+=2)
+		{
 
-		cout << setfill('-')<< setw(96) << '-' << endl;
+			cout << setfill('-')<< setw(96) << '-' << endl;
 
-		cout << ' ' << setfill(' ') << left <<  setw(50) << this->wineries[i]->getName()
-			 << "| " << setfill(' ') << left  << setw(46) << this->wineries[i+1]->getName()
-			 << endl;
+			cout << ' ' << setfill(' ') << left <<  setw(50) << this->wineries[i]->getName()
+				 << "| " << setfill(' ') << left  << setw(46) << this->wineries[i+1]->getName()
+				 << endl;
 
-		cout << ' ' << setfill(' ') << left <<  setw(49) << "Wine List: "
-			 << setfill(' ') << left <<  setw(48)<< " | Wine List: "
-			 << endl;
+			cout << ' ' << setfill(' ') << left <<  setw(49) << "Wine List: "
+				 << setfill(' ') << left <<  setw(48)<< " | Wine List: "
+				 << endl;
 
 
-		for (unsigned int j = 0; j < 10; j++)
-			{
-			string outputWinery1;
-			bool output1;
-			output1 = false;
-			string outputWinery2;
-			bool output2;
-			output2 = false;
-
-			if(j < this->wineries[i]->wineList.size())
+			for (unsigned int j = 0; j < 10; j++)
 				{
-				outputWinery1 = wineries[i]->wineList[j]->getName();
-				output1 = true;
-				}
-			else
-				{
-				outputWinery1 = "";
-				}
-			if(j < this->wineries[i+1]->wineList.size())
-				{
-				outputWinery2 = wineries[i+1]->wineList[j]->getName();
-				output2 = true;
-				}
-			else
-				{
-				outputWinery2 = "";
-				}
+				string outputWinery1;
+				bool output1;
+				output1 = false;
+				string outputWinery2;
+				bool output2;
+				output2 = false;
+
+				if(j < this->wineries[i]->wineList.size())
+					{
+					outputWinery1 = wineries[i]->wineList[j]->getName();
+					output1 = true;
+					}
+				else
+					{
+					outputWinery1 = "";
+					}
+				if(j < this->wineries[i+1]->wineList.size())
+					{
+					outputWinery2 = wineries[i+1]->wineList[j]->getName();
+					output2 = true;
+					}
+				else
+					{
+					outputWinery2 = "";
+					}
 
 
 
 
-			if (output1 && output2)
+				if (output1 && output2)
+					{
+					cout << " " << j+1 << ". " << setfill(' ') << left <<  setw(46)  << outputWinery1
+						 << " | " << j+1 << ". " << outputWinery2
+						 << endl;
+
+					cout << "   Price:" << left <<  setfill(' ') << setw(10) << wineries[i]->wineList[j]->getPrice();
+					cout << " Year: " << left <<  setfill(' ') << setw(25)  << wineries[i]->wineList[j]->getYear();
+					cout << "|   Price:" << left <<  setfill(' ') << setw(10) << wineries[i+1]->wineList[j]->getPrice();
+					cout << " Year: " << left <<  setfill(' ') << setw(36)  << wineries[i+1]->wineList[j]->getYear();
+					cout << endl;
+					}
+				else if(output1)
+					{
+					cout << " " << j+1 << ". " << setfill(' ') << left <<  setw(46)  << outputWinery1
+						 << " | " << j+1 << ". " << outputWinery2
+						 << endl;
+
+					cout << "   Price:" << left <<  setfill(' ') << setw(10) << wineries[i]->wineList[j]->getPrice();
+					cout << " Year: " << left <<  setfill(' ') << setw(25)  << wineries[i]->wineList[j]->getYear()
+						 << "|";
+					cout << endl;
+					}
+				else if(output2)
+					{
+					cout << " " << j+1 << ". " << setfill(' ') << left <<  setw(46)  << outputWinery1
+						 << " | " << j+1 << ". " << outputWinery2
+						 << endl;
+
+					cout << left << setfill(' ') << setw(53) << " ";
+					cout << "    Price:" << left <<  setfill(' ') << setw(10) << wineries[i+1]->wineList[j]->getPrice();
+					cout << " Year: " << left <<  setfill(' ') << setw(25)  << wineries[i+1]->wineList[j]->getYear();
+					cout << endl;
+					}
+			}
+
+		}
+
+		if(this->wineries.size()%2 == 1){
+			cout << setfill('-')<< setw(96) << '-' << endl;
+
+			cout << ' ' << setfill(' ') << left <<  setw(50) << this->wineries[this->wineries.size() - 1]->getName()
+				 << "| " << setfill(' ') << left  << setw(50)
+				 << endl;
+
+			cout << " Wine List: " << setfill(' ') << left <<  setw(55) << '|'
+				 << endl;
+
+			for(unsigned int j = 0; j  < this->wineries[this->wineries.size() - 1]->wineList.size(); ++j)
 				{
-				cout << " " << j+1 << ". " << setfill(' ') << left <<  setw(46)  << outputWinery1
-					 << " | " << j+1 << ". " << outputWinery2
+				cout << " " << j+1 << ". " << setfill(' ') << left <<  setw(46)  << this->wineries[this->wineries.size() - 1]->getName()
+					 << " | "
 					 << endl;
 
-				cout << "   Price:" << left <<  setfill(' ') << setw(10) << wineries[i]->wineList[j]->getPrice();
-				cout << " Year: " << left <<  setfill(' ') << setw(25)  << wineries[i]->wineList[j]->getYear();
-				cout << "|   Price:" << left <<  setfill(' ') << setw(10) << wineries[i+1]->wineList[j]->getPrice();
-				cout << " Year: " << left <<  setfill(' ') << setw(36)  << wineries[i+1]->wineList[j]->getYear();
-				cout << endl;
-				}
-			else if(output1)
-				{
-				cout << " " << j+1 << ". " << setfill(' ') << left <<  setw(46)  << outputWinery1
-					 << " | " << j+1 << ". " << outputWinery2
-					 << endl;
-
-				cout << "    Price:" << left <<  setfill(' ') << setw(10) << wineries[i]->wineList[j]->getPrice();
-				cout << " Year: " << left <<  setfill(' ') << setw(25)  << wineries[i]->wineList[j]->getYear()
+				cout << "   Price:" << left <<  setfill(' ') << setw(10) << wineries[this->wineries.size() - 1]->wineList[j]->getPrice();
+				cout << " Year: " << left <<  setfill(' ') << setw(25)  << wineries[this->wineries.size() - 1]->wineList[j]->getYear()
 					 << "|";
 				cout << endl;
 				}
-			else if(output2)
-				{
-				cout << " " << j+1 << ". " << setfill(' ') << left <<  setw(46)  << outputWinery1
-					 << " | " << j+1 << ". " << outputWinery2
-					 << endl;
-
-				cout << left << setfill(' ') << setw(53) << " ";
-				cout << "    Price:" << left <<  setfill(' ') << setw(10) << wineries[i+1]->wineList[j]->getPrice();
-				cout << " Year: " << left <<  setfill(' ') << setw(25)  << wineries[i+1]->wineList[j]->getYear();
-				cout << endl;
-				}
-		}
-
+}
 	}
-
 
 
 	/*****************************BEGIN OLD OUTPUT WINERIES*********************************
