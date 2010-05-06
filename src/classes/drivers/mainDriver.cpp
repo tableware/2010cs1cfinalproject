@@ -152,6 +152,10 @@ void mainDriver::listWineries()
 				 << "| " << setfill(' ') << left  << setw(46) << this->wineries[i+1]->getName()
 				 << endl;
 
+			cout << ' ' << setfill(' ') << left << "Distance from Canyon Villa: "  << setw(22) << this->wineries[i]->getDistance()
+				 << "| " << setfill(' ') << left << "Distance from Canyon Villa: "  << setw(28) << this->wineries[i+1]->getDistance()
+				 << endl;
+
 			cout << ' ' << setfill(' ') << left <<  setw(49) << "Wine List: "
 				 << setfill(' ') << left <<  setw(48)<< " | Wine List: "
 				 << endl;
