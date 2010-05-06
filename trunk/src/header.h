@@ -32,6 +32,7 @@ using namespace std;
 using namespace wineryProject_drivers;
 
 #include "functions/functions.h"
+#include "functions/templateFunctions.cpp"
 
 struct winePurchase
 {
