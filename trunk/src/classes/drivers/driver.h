@@ -60,7 +60,20 @@ namespace wineryProject_drivers
 			 */
 			void quit();
 
+			/*
+			 * Requests a user input to continue.
+			 * Causes output screen to clear after user is finished reviewing information
+			 */
+			void keyContinue();
+
+			/**
+			 * Prints out heading for the User interface in the command prompt
+			 * including the program title, revision number, etc.
+			 */
+			virtual void printHeader();
+
 		private:
+
 
 			// holds the information of a single menu item
 			struct driverMenuItem
