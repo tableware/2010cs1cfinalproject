@@ -201,10 +201,6 @@ void adminDriver::addWineToWinery()
 		getline(cin, temp);
 		tempWine->setName(temp);
 
-		cout << "Quantity of Wine: ";
-		getline(cin, temp);
-		tempWine->setQuantity(atoi(temp.c_str()));
-
 		cout << "Price of Wine: ";
 		getline(cin, temp);
 		tempWine->setPrice(atof(temp.c_str()));
