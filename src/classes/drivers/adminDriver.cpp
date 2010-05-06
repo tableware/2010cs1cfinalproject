@@ -71,6 +71,7 @@ void adminDriver::loadInitialData()
 
 		// grab the number of the number of distances
 		getline(stream, temp);
+		tempWinery->setDistance(atof(temp.c_str()));
 
 		// loop to grab all of the distances
 		for(int i = 0; i < atoi(temp.c_str()); ++i)
@@ -133,6 +134,11 @@ void adminDriver::addWinery()
 	// our winery number should be the current number of wineries + 1
 	tempWinery->setNumber(this->wineries->size() + 1);
 
+	// get the distance from the our location
+	cout << "Distance for Canyon Villa: ";
+	getline(cin, temp);
+	tempWinery->setDistance(atof(temp.c_str()));
+
 	// get the number of wines
 	cout << "Number of wines: ";
 	getline(cin, temp);
@@ -145,10 +151,6 @@ void adminDriver::addWinery()
 		cout << "Name of Wine: ";
 		getline(cin, temp2);
 		tempWine->setName(temp2);
-
-		cout << "Quantity of Wine: ";
-		getline(cin, temp2);
-		tempWine->setQuantity(atoi(temp2.c_str()));
 
 		cout << "Price of Wine: ";
 		getline(cin, temp2);
