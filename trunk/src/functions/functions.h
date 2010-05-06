@@ -21,6 +21,7 @@ struct binaryWinery
 	int number;
 	unsigned int distances;
 	unsigned int wines;
+	float distance;
 	char name[70];
 };
 

@@ -39,6 +39,7 @@ vector<Winery*> binaryFileRead(string filename)
 			tempWinery = new Winery;
 			tempWinery->setNumber(currentWinery.number);
 			tempWinery->setName(currentWinery.name);
+			tempWinery->setDistance(currentWinery.distance);
 
 			// load in all of the information about wines
 			for(unsigned int wine = 0; wine < currentWinery.wines; ++wine)
@@ -104,6 +105,7 @@ void binaryFileWrite(string filename, vector<Winery*> wineries)
 		currentWinery.number    = wineries[winery]->getNumber();
 		currentWinery.distances = wineries[winery]->distanceList.size();
 		currentWinery.wines     = wineries[winery]->wineList.size();
+		currentWinery.distance  = wineries[winery]->getDistance();
 
 		strncpy(currentWinery.name, wineries[winery]->getName().c_str(), strlen(wineries[winery]->getName().c_str()));
 		currentWinery.name[wineries[winery]->getName().size()] = 0;

@@ -3,14 +3,16 @@
 Winery::Winery() :
 	number(0),
 	name(""),
+	distance(0.0),
 	visited(true)
 {
 
 }
 
-Winery::Winery(int number, string name) :
+Winery::Winery(int number, string name, float distance) :
 	number(number),
 	name(name),
+	distance(distance),
 	visited(true)
 
 {
@@ -42,7 +44,6 @@ int Winery::getNumber()
 	return this->number;
 }
 
-
 void Winery::setVisited(bool visited)
 {
 	this->visited = visited;
@@ -51,6 +52,16 @@ void Winery::setVisited(bool visited)
 bool Winery::getVisited()
 {
 	return this->visited;
+}
+
+void Winery::setDistance(float distance)
+{
+	this->distance = distance;
+}
+
+float Winery::getDistance()
+{
+	return this->distance;
 }
 
 void Winery::outputWineTable()
