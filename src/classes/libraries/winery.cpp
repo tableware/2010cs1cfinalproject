@@ -1,7 +1,6 @@
 #include "winery.h"
 
 Winery::Winery() :
-	numOfWines(0),
 	number(0),
 	name(""),
 	visited(true)
@@ -10,7 +9,6 @@ Winery::Winery() :
 }
 
 Winery::Winery(int number, string name) :
-	numOfWines(0),
 	number(number),
 	name(name),
 	visited(true)
@@ -44,15 +42,6 @@ int Winery::getNumber()
 	return this->number;
 }
 
-void Winery::setSubTotal(float subTotal)
-{
-	this->subTotal = subTotal;
-}
-
-float Winery::getSubTotal()
-{
-	return this->subTotal;
-}
 
 void Winery::setVisited(bool visited)
 {
@@ -62,15 +51,6 @@ void Winery::setVisited(bool visited)
 bool Winery::getVisited()
 {
 	return this->visited;
-}
-
-void Winery::setNumOfWines(int numOfWines)
-{
-	this->numOfWines = numOfWines;
-}
-int Winery::getNumOfWines()
-{
-	return this->numOfWines;
 }
 
 void Winery::outputWineTable()
