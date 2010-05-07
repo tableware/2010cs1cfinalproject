@@ -242,7 +242,7 @@ unsigned int trip::inputCheck()
 
 	do
 	{
-		cout << "\nEnter the ID of the winery you want"
+		cout << "Enter the ID of the winery you want"
 				" to visit (0 to exit): ";
 		if(!(cin >> option))
 		{

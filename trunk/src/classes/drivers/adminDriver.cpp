@@ -197,11 +197,11 @@ void adminDriver::addWineToWinery()
 	{
 		Wine* tempWine = new Wine();
 
-		cout << "Name of Wine: ";
+		cout << "\nName of Wine: ";
 		getline(cin, temp);
 		tempWine->setName(temp);
 
-		cout << "Price of Wine: ";
+		cout << "Price of Wine: $";
 		getline(cin, temp);
 		tempWine->setPrice(atof(temp.c_str()));
 
@@ -239,9 +239,10 @@ void adminDriver::changePriceOfWine()
 			cout << "Please make a selection: ";
 			if(!(cin >> wine))
 			{
-				cout << "Invalid input.";
+				cout << "\nInvalid input.\n\n";
 				cin.clear();
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				wine = (*this->wineries)[winery]->wineList.size() + 2;
 			}
 		} while(wine < 1 || wine > (*this->wineries)[winery]->wineList.size() + 1);
 
@@ -251,8 +252,9 @@ void adminDriver::changePriceOfWine()
 
 		if(wine < (*this->wineries)[winery]->wineList.size())
 		{
-			cout << "Old price of wine: " << (*this->wineries)[winery]->wineList[wine]->getPrice() << endl;
-			cout << "New price of wine: ";
+			cout << fixed << setprecision(2) << endl;
+			cout << "Old price of wine: $" << (*this->wineries)[winery]->wineList[wine]->getPrice() << endl;
+			cout << "New price of wine: $";
 			getline(cin, temp);
 			(*this->wineries)[winery]->wineList[wine]->setPrice(atof(temp.c_str()));
 
@@ -280,9 +282,10 @@ unsigned int adminDriver::_selectWinery()
 		cout << "Please make a selection: ";
 		if(!(cin >> option))
 		{
-			cout << "Invalid input.";
+			cout << "\nInvalid input.\n\n";
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			option = this->wineries->size() + 2;
 		}
 	} while(option < 1 || option > this->wineries->size() + 1);
 
