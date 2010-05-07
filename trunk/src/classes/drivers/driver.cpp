@@ -58,7 +58,7 @@ namespace wineryProject_drivers
 				cout << "Please make a selection: ";
 				if(!(cin >> option))
 				{
-					cout << "Invalid input.";
+					cout << "\nInvalid input.\n\n";
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				}
