@@ -34,10 +34,4 @@ using namespace wineryProject_drivers;
 #include "functions/functions.h"
 #include "functions/templateFunctions.cpp"
 
-struct winePurchase
-{
-	Wine* wine;
-	int quantity;
-};
-
 #endif /* HEADER_H_ */

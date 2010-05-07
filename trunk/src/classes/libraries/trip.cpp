@@ -46,8 +46,6 @@ void trip::setDistanceTraveled(float distTraveled)
 
 void trip::outputTableWineCheckout(int place)
 {
-	int finder;
-
 	cout << right << setw(3) << "#" << left << setw(35) << " Name of wine"
 		 << right << setw(10) << "Price" << setw(8) << "Year"
 		 << setw(4) << "Qty" << endl;
@@ -60,13 +58,9 @@ void trip::outputTableWineCheckout(int place)
 	{
 		cout << right << setw(3) << count + 1 << left << " " << setw(34)
 			 << this->boozeList[count]->wine->getName() << right;
-
-		finder = FindName(this->wineries[place]->wineList,
-						  this->boozeList[count]->wine->getName());
-
-		cout << setw(10) << this->wineries[place]->wineList[finder]->getPrice()
-			 << setw(8)
-			 << this->wineries[place]->wineList[finder]->getYear()
+		cout << "$" << setw(9)
+			 << this->wineries[place]->wineList[count]->getPrice() << setw(8)
+			 << this->wineries[place]->wineList[count]->getYear()
 			 << setw(4) << this->boozeList[count]->quantity << endl;
 	}
 }
@@ -94,7 +88,7 @@ void trip::clearPurchases()
 
 void trip::outputWineryTable()
 {
-	cout << right << setw(3) << "#" << left << setw(35) << " Name of winery"
+	cout << right << setw(3) << "ID" << left << setw(35) << " Name of winery"
 		 << right << setw(10) << "# of Wines" << endl;
 	cout << setfill('-');
 	cout << setw(48) << "-";
@@ -248,7 +242,7 @@ unsigned int trip::inputCheck()
 
 	do
 	{
-		cout << "\nEnter the number of the winery you want"
+		cout << "\nEnter the ID of the winery you want"
 				" to visit (0 to exit): ";
 		if(!(cin >> option))
 		{
@@ -431,7 +425,6 @@ unsigned int trip::wineNumberSelect()
 	return choice;
 }
 
-//You'll have to add all the totals together in main or something...hmmm
 void trip::calculateTotals()
 {
 	float temp;
@@ -451,9 +444,9 @@ void trip::calculateTotals()
 
 void trip::outputTotals()
 {
-	cout << right << setw(50) << "Subtotal:" << setw(10)
-		 << this->subTotal << endl << setw(50) << "Tax:" << setw(10)
-		 << this->tax << endl << setw(50) << "Total:" << setw(10)
+	cout << right << setw(49) << "Subtotal:" << "$" << setw(10)
+		 << this->subTotal << endl << setw(49) << "Tax:" << "$" << setw(10)
+		 << this->tax << endl << setw(49) << "Total:" << "$" << setw(10)
 		 << this->total << endl;
 }
 
@@ -520,6 +513,7 @@ void trip::touring(vector<Winery*> mainList)
 		cout << "Total Distance Traveled: " << this->distanceTraveled <<
 				 endl << endl;
 		this->distanceTraveled = 0;
+		this->resetVisited();
 
 		choice = this->tourSelect();
 	}
@@ -534,8 +528,8 @@ void trip::outputCompleteTotal(float subtotal)
 	cout << setw(60) << "-";
 	cout << setfill(' ');
 	cout << endl << setw(40) << "*Overall Total*" << endl
-		 << setw(50) << "Subtotal:" << setw(10)
-		 << subtotal << endl << setw(50) << "Tax:" << setw(10)
-		 << subtotal * .0875 << endl << setw(50) << "Total:" << setw(10)
-		 << subtotal + (subtotal * .0875) << endl;
+		 << setw(49) << "Subtotal:" << "$" << setw(10)
+		 << subtotal << endl << setw(49) << "Tax:" << "$" << setw(10)
+		 << subtotal * .0875 << endl << setw(49) << "Total:" << "$"
+		 << setw(10) << subtotal + (subtotal * .0875) << endl;
 }

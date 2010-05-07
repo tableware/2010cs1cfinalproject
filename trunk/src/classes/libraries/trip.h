@@ -13,7 +13,11 @@
 // do a forward declare
 class Winery;
 
-struct winePurchase;
+struct winePurchase
+{
+	Wine* wine;
+	int quantity;
+};
 
 class trip
 {
